@@ -40,7 +40,7 @@
       android:name="androidx.multidex.MultiDexApplication"
       tools:targetApi="29">
 
-    <activity android:name=".SampleChooserActivity"
+    <activity android:name=".PlaygroundActivity"
         android:configChanges="keyboardHidden"
         android:label="@string/application_name"
         android:theme="@style/Theme.AppCompat"
