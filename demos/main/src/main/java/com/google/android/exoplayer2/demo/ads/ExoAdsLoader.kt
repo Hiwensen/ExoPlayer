@@ -35,6 +35,7 @@ class ExoAdsLoader(val context: Context) : AdsLoader, Player.Listener {
     private val playerListener = PlayerListenerImpl()
 
     override fun setPlayer(player: Player?) {
+        Log.d(ADS_LOADER_DEBUG,"setPlayer")
         checkState(Looper.myLooper() == Looper.getMainLooper())
         nextPlayer = player
         wasSetPlayerCalled = true
@@ -74,7 +75,7 @@ class ExoAdsLoader(val context: Context) : AdsLoader, Player.Listener {
         adViewProvider: AdViewProvider,
         eventListener: AdsLoader.EventListener
     ) {
-        Log.d(ADS_LOADER_DEBUG, "start, adsId:$adsId,")
+        Log.d(ADS_LOADER_DEBUG, "start, adsId:$adsId")
         checkState(
             wasSetPlayerCalled, "Set player using adsLoader.setPlayer before preparing the player."
         )

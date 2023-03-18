@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,95 +14,112 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.google.android.exoplayer2.demo">
-
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-  <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-
-  <uses-feature android:name="android.software.leanback" android:required="false"/>
-  <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
-  <uses-sdk/>
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.google.android.exoplayer2.demo">
 
   <application
+    android:allowBackup="false"
+    android:banner="@drawable/ic_banner"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/application_name"
+    android:largeHeap="true"
+    android:name="androidx.multidex.MultiDexApplication"
+    android:requestLegacyExternalStorage="true"
+    android:supportsRtl="true"
+    android:usesCleartextTraffic="true"
+    tools:targetApi="29">
+
+    <activity
+      android:configChanges="keyboardHidden"
+      android:exported="true"
       android:label="@string/application_name"
-      android:icon="@mipmap/ic_launcher"
-      android:banner="@drawable/ic_banner"
-      android:largeHeap="true"
-      android:allowBackup="false"
-      android:requestLegacyExternalStorage="true"
-      android:supportsRtl="true"
-      android:name="androidx.multidex.MultiDexApplication"
-      tools:targetApi="29">
-
-    <activity android:name=".PlaygroundActivity"
-        android:configChanges="keyboardHidden"
-        android:label="@string/application_name"
-        android:theme="@style/Theme.AppCompat"
-        android:exported="true">
+      android:name=".PlaygroundActivity"
+      android:theme="@style/PlaygroundTheme">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-        <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
       </intent-filter>
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="http"/>
-        <data android:scheme="https"/>
-        <data android:scheme="content"/>
-        <data android:scheme="asset"/>
-        <data android:scheme="file"/>
-        <data android:host="*"/>
-        <data android:pathPattern=".*\\.exolist\\.json"/>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+        <data android:scheme="content" />
+        <data android:scheme="asset" />
+        <data android:scheme="file" />
+        <data android:host="*" />
+        <data android:pathPattern=".*\\.exolist\\.json" />
       </intent-filter>
     </activity>
 
-    <activity android:name=".PlayerActivity"
-        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-        android:launchMode="singleTop"
-        android:label="@string/application_name"
-        android:theme="@style/PlayerTheme"
-        android:exported="true">
+    <activity
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+      android:exported="true"
+      android:label="@string/application_name"
+      android:launchMode="singleTop"
+      android:name=".PlayerActivity"
+      android:theme="@style/PlayerTheme">
       <intent-filter>
-        <action android:name="com.google.android.exoplayer.demo.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <data android:scheme="http"/>
-        <data android:scheme="https"/>
-        <data android:scheme="content"/>
-        <data android:scheme="asset"/>
-        <data android:scheme="file"/>
-        <data android:scheme="ssai"/>
+        <action android:name="com.google.android.exoplayer.demo.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+        <data android:scheme="content" />
+        <data android:scheme="asset" />
+        <data android:scheme="file" />
+        <data android:scheme="ssai" />
       </intent-filter>
       <intent-filter>
-        <action android:name="com.google.android.exoplayer.demo.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <data android:scheme="content"/>
-        <data android:mimeType="*/*"/>
+        <action android:name="com.google.android.exoplayer.demo.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data android:scheme="content" />
+        <data android:mimeType="*/*" />
       </intent-filter>
       <intent-filter>
-        <action android:name="com.google.android.exoplayer.demo.action.VIEW_LIST"/>
-        <category android:name="android.intent.category.DEFAULT"/>
+        <action android:name="com.google.android.exoplayer.demo.action.VIEW_LIST" />
+        <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
 
-    <service android:name=".DemoDownloadService"
-        android:exported="false">
+    <service
+      android:exported="false"
+      android:name=".DemoDownloadService">
       <intent-filter>
-        <action android:name="com.google.android.exoplayer.downloadService.action.RESTART"/>
-        <category android:name="android.intent.category.DEFAULT"/>
+        <action android:name="com.google.android.exoplayer.downloadService.action.RESTART" />
+        <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </service>
 
-    <service android:name="com.google.android.exoplayer2.scheduler.PlatformScheduler$PlatformSchedulerService"
-        android:permission="android.permission.BIND_JOB_SERVICE"
-        android:exported="true"/>
+    <service
+      android:exported="true"
+      android:name="com.google.android.exoplayer2.scheduler.PlatformScheduler$PlatformSchedulerService"
+      android:permission="android.permission.BIND_JOB_SERVICE" />
 
   </application>
+
+  <uses-feature
+    android:name="android.software.leanback"
+    android:required="false" />
+  <uses-feature
+    android:name="android.hardware.touchscreen"
+    android:required="false" />
+
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+  <uses-sdk />
 
 </manifest>

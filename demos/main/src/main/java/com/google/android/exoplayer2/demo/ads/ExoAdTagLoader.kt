@@ -23,7 +23,8 @@ import com.google.android.exoplayer2.util.Assertions
 import com.google.android.exoplayer2.util.Util
 import java.io.IOException
 import java.util.*
-
+import kotlin.math.roundToLong
+const val SKIP_DEBUG = "skipDebug"
 class ExoAdTagLoader(
         context: Context, supportedMimeTypes: List<String>, private val adTagDataSpec: DataSpec,
         private val adsId: Any, adViewGroup: ViewGroup?
@@ -102,12 +103,14 @@ class ExoAdTagLoader(
             // Pass the ad playback state to the player, and resume ads if necessary.
             eventListener.onAdPlaybackState(adPlaybackState)
         } else {
-            adPlaybackState = AdPlaybackState(
-                    adsId, 3 * 60 * C.MICROS_PER_SECOND,
-                    6 * 60 * C.MICROS_PER_SECOND,
-                    9 * 60 * C.MICROS_PER_SECOND,
-                    12 * 60 * C.MICROS_PER_SECOND
-            )
+            adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointList))
+
+//            adPlaybackState = AdPlaybackState(
+//                    adsId, 3 * 60 * C.MICROS_PER_SECOND,
+//                    6 * 60 * C.MICROS_PER_SECOND,
+//                    9 * 60 * C.MICROS_PER_SECOND,
+//                    12 * 60 * C.MICROS_PER_SECOND
+//            )
             Log.d(ADS_LOADER_DEBUG, "addListenerWithAdView, update cuePoint info")
             updateAdPlaybackState()
         }
@@ -174,15 +177,20 @@ class ExoAdTagLoader(
 //            )
 //            updateAdPlaybackState()
 
-        // reset the next cuePoint if necessary
-//            getFirstAdIndexAfterPosition(positionMilli).takeIf { it != -1 }?.let { nextCuePointIndex ->
-//                if (adPlayedGroupMap[nextCuePointIndex] == true) {
+//         reset the next cuePoint if necessary
+        getFirstAdIndexAfterPosition(positionMilli).takeIf { it != -1 }?.let { nextCuePointIndex ->
+            if (adPlayedGroupMap[nextCuePointIndex] == true) {
 //                    Log.d(ADS_LOADER_DEBUG, "going to reset ad group after rewind:$nextCuePointIndex")
 //                    adPlaybackState = adPlaybackState.withResetAdGroup(nextCuePointIndex)
-//                    updateAdPlaybackState()
-//                    adPlayedGroupMap[nextCuePointIndex] = false
-//                }
-//            }
+
+                Log.d(ADS_LOADER_DEBUG, "going to recreate AdPlaybackState after rewind")
+                adPlaybackState = AdPlaybackState(
+                        adsId, *getAdGroupTimesUsForCuePoints(cuePointList)
+                )
+                updateAdPlaybackState()
+                adPlayedGroupMap[nextCuePointIndex] = false
+            }
+        }
 //        }
     }
 
@@ -596,20 +604,20 @@ class ExoAdTagLoader(
                 adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 2)
                 adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_3))
                 adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_4))
-                //            adPlaybackState = adPlaybackState.withAvailableAdUri(adIndex, 2, Uri.parse(AD_URL_5))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_5))
             }
-            else -> {
-                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 3)
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_4))
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_5))
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_1))
-            }
+//            else -> {
+//                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 3)
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_4))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_5))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_1))
+//            }
         }
         updateAdPlaybackState()
         Log.d(ADS_LOADER_DEBUG, "insert ads, adPlayedTime:$adPlayedTime")
     }
 
-    fun getAdGroupTimesUsForCuePoints(cuePoints: List<Float>): LongArray {
+    private fun getAdGroupTimesUsForCuePoints(cuePoints: List<Float>): LongArray {
         if (cuePoints.isEmpty()) {
             return longArrayOf(0L)
         }
@@ -621,7 +629,7 @@ class ExoAdTagLoader(
             if (cuePoint == -1.0) {
                 adGroupTimesUs[count - 1] = C.TIME_END_OF_SOURCE
             } else {
-                adGroupTimesUs[adGroupIndex++] = Math.round(C.MICROS_PER_SECOND * cuePoint)
+                adGroupTimesUs[adGroupIndex++] = cuePoint.roundToLong()
             }
         }
         // Cue points may be out of order, so sort them.
