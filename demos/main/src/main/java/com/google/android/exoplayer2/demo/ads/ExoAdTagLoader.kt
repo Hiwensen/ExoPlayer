@@ -308,6 +308,7 @@ class ExoAdTagLoader(
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {
+        Log.d(ADS_LOADER_DEBUG, "onPlaybackStateChanged, state:$playbackState, buffer state 2")
         val player = player ?: return
 
         if (playbackState == Player.STATE_BUFFERING && !player.isPlayingAd

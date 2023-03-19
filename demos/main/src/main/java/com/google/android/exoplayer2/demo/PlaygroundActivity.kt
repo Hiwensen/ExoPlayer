@@ -81,11 +81,12 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
 
     private fun playDRM() {
         val drmConfiguration = MediaItem.DrmConfiguration.Builder(C.WIDEVINE_UUID)
-                .setLicenseUri(URI_DRM_LICENSE)
+                .setLicenseUri(URI_DRM_LICENSE_TUBI)
                 .setMultiSession(true)
                 .setPlayClearContentWithoutKey(true)
+                .setLicenseRequestHeaders(mapOf("customData" to ""))
                 .build()
-        val mediaItem = MediaItem.Builder().setUri(URI_WIDEVINE)
+        val mediaItem = MediaItem.Builder().setUri(URI_WIDEVINE_TUBI)
                 .setDrmConfiguration(drmConfiguration)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(AD_TAG_URI).build())
                 .build()
@@ -95,7 +96,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     }
 
     private fun playClearContent() {
-        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT)
+        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT_TUBI)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(AD_TAG_URI).build())
                 .build()
         player.setMediaItem(mediaItem)
