@@ -452,11 +452,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
   @Override
   public void onPrepared(MediaPeriod source) {
+    Log.d("prepareDebug","ExoPlayerImplInternal, onPrepared");
     handler.obtainMessage(MSG_PERIOD_PREPARED, source).sendToTarget();
   }
 
   @Override
   public void onContinueLoadingRequested(MediaPeriod source) {
+    Log.d("prepareDebug","ExoPlayerImplInternal,onContinueLoadingRequested");
     handler.obtainMessage(MSG_SOURCE_CONTINUE_LOADING_REQUESTED, source).sendToTarget();
   }
 
@@ -704,7 +706,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
         /* resetError= */ true);
     loadControl.onPrepared();
     setState(playbackInfo.timeline.isEmpty() ? Player.STATE_ENDED : Player.STATE_BUFFERING);
+    Log.d("prepareDebug", "going to prepare");
     mediaSourceList.prepare(bandwidthMeter.getTransferListener());
+    Log.d("prepareDebug", "prepare executed");
     handler.sendEmptyMessage(MSG_DO_SOME_WORK);
   }
 
@@ -964,7 +968,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
     long operationStartTimeMs = clock.uptimeMillis();
     // Remove other pending DO_SOME_WORK requests that are handled by this invocation.
     handler.removeMessages(MSG_DO_SOME_WORK);
-
     updatePeriods();
 
     if (playbackInfo.playbackState == Player.STATE_IDLE
@@ -1987,6 +1990,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
                 mediaSourceList,
                 info,
                 emptyTrackSelectorResult);
+        Log.d("prepareDebug","ExoImplInternal,maybeUpdateLoadingPeriod, going to call mediePeriod preapre ");
         mediaPeriodHolder.mediaPeriod.prepare(this, info.startPositionUs);
         if (queue.getPlayingPeriod() == mediaPeriodHolder) {
           resetRendererPosition(info.startPositionUs);

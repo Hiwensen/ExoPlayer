@@ -46,6 +46,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.LoadErrorHandlingPolicy;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
 import com.google.common.primitives.Ints;
@@ -159,6 +160,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
 
   @Override
   public void prepare(Callback callback, long positionUs) {
+    Log.d("prepareDebug","HlsMediaPeriod, prepare");
     this.mediaPeriodCallback = callback;
     playlistTracker.addListener(this);
     buildAndPrepareSampleStreamWrappers(positionUs);
@@ -440,6 +442,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
 
   @Override
   public void onPlaylistChanged() {
+    Log.d("prepareDebug","HlsMediaPeriod,onPlaylistChanged");
     for (HlsSampleStreamWrapper streamWrapper : sampleStreamWrappers) {
       streamWrapper.onPlaylistUpdated();
     }

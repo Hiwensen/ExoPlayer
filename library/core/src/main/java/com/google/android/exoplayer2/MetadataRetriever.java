@@ -35,6 +35,7 @@ import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.google.android.exoplayer2.util.Clock;
 import com.google.android.exoplayer2.util.HandlerWrapper;
+import com.google.android.exoplayer2.util.Log;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
@@ -201,6 +202,7 @@ public final class MetadataRetriever {
                   new MediaSource.MediaPeriodId(timeline.getUidOfPeriod(/* periodIndex= */ 0)),
                   allocator,
                   /* startPositionUs= */ 0);
+          Log.d("prepareDebug","MetadataRetriever,onSourceInfoRefreshed");
           mediaPeriod.prepare(mediaPeriodCallback, /* positionUs= */ 0);
         }
 

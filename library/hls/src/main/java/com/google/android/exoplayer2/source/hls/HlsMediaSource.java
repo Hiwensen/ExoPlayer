@@ -54,6 +54,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultLoadErrorHandlingPolicy;
 import com.google.android.exoplayer2.upstream.LoadErrorHandlingPolicy;
 import com.google.android.exoplayer2.upstream.TransferListener;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.IOException;
@@ -463,6 +464,7 @@ public final class HlsMediaSource extends BaseMediaSource
 
   @Override
   public void onPrimaryPlaylistRefreshed(HlsMediaPlaylist mediaPlaylist) {
+    Log.d("prepareDebug","HlsMediaSource, onPrimaryPlaylistRefreshed, url:" + mediaPlaylist.baseUri);
     long windowStartTimeMs =
         mediaPlaylist.hasProgramDateTime ? Util.usToMs(mediaPlaylist.startTimeUs) : C.TIME_UNSET;
     // For playlist types EVENT and VOD we know segments are never removed, so the presentation
