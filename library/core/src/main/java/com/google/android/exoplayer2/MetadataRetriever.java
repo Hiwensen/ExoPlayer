@@ -202,7 +202,8 @@ public final class MetadataRetriever {
                   new MediaSource.MediaPeriodId(timeline.getUidOfPeriod(/* periodIndex= */ 0)),
                   allocator,
                   /* startPositionUs= */ 0);
-          Log.d("prepareDebug","MetadataRetriever,onSourceInfoRefreshed");
+          Log.d("prepareDebug","MetadataRetriever,onSourceInfoRefreshed, "
+              + "going to call mediaPeriod prepare");
           mediaPeriod.prepare(mediaPeriodCallback, /* positionUs= */ 0);
         }
 

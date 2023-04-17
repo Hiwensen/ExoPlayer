@@ -311,6 +311,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
     MediaSourceHolder holder = checkNotNull(mediaSourceByUid.get(mediaSourceHolderUid));
     enableMediaSource(holder);
     holder.activeMediaPeriodIds.add(childMediaPeriodId);
+    Log.d("prepareDebug","MediaSourceList createPeriod, going to call MaskingMediaSource createPeriod");
     MediaPeriod mediaPeriod =
         holder.mediaSource.createPeriod(childMediaPeriodId, allocator, startPositionUs);
     mediaSourceByMediaPeriod.put(mediaPeriod, holder);
@@ -435,7 +436,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
     return windowIndex + mediaSourceHolder.firstWindowIndexInChild;
   }
 
-  private void prepareChildSource(MediaSourceHolder holder) {
+    private void prepareChildSource(MediaSourceHolder holder) {
     MediaSource mediaSource = holder.mediaSource;
     MediaSource.MediaSourceCaller caller =
         (source, timeline) -> mediaSourceListInfoListener.onPlaylistUpdateRequested();

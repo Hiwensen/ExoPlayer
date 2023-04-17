@@ -430,6 +430,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
       Allocator allocator,
       long startPositionUs,
       long endPositionUs) {
+    Log.d("prepareDebug","MediaPeriodHolder createMediaPeriod, going to call MediaSourceList createPeriod");
     MediaPeriod mediaPeriod = mediaSourceList.createPeriod(id, allocator, startPositionUs);
     if (endPositionUs != C.TIME_UNSET) {
       mediaPeriod =

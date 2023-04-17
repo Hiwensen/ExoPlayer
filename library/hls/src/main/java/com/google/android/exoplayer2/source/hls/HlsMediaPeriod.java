@@ -904,6 +904,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
         }
       }
       trackGroups = new TrackGroupArray(trackGroupArray);
+      Log.d("prepareDebug","HlsMediaPeriod, SampleStreamWrapperCallback,onPrepared");
       mediaPeriodCallback.onPrepared(HlsMediaPeriod.this);
     }
 

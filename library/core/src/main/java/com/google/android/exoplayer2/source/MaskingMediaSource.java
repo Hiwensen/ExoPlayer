@@ -27,6 +27,7 @@ import com.google.android.exoplayer2.Timeline.Window;
 import com.google.android.exoplayer2.source.ads.AdPlaybackState;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
@@ -79,6 +80,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
   public void prepareSourceInternal() {
     if (!useLazyPreparation) {
       hasStartedPreparing = true;
+      Log.d("prepareDebug","MaskingMediaSource, prepareSourceInternal");
       prepareChildSource();
     }
   }
@@ -97,6 +99,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
     mediaPeriod.setMediaSource(mediaSource);
     if (isPrepared) {
       MediaPeriodId idInSource = id.copyWithPeriodUid(getInternalPeriodUid(id.periodUid));
+      Log.d("prepareDebug","MaskingMediaSource createPeriod, going to call MaskingMediaPeriod createPeriod");
       mediaPeriod.createPeriod(idInSource);
     } else {
       // We should have at most one media period while source is unprepared because the duration is
@@ -105,6 +108,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
       unpreparedMaskingMediaPeriod = mediaPeriod;
       if (!hasStartedPreparing) {
         hasStartedPreparing = true;
+        Log.d("prepareDebug","MaskingMediaSource createPeriod, going to call prepareChildSource");
         prepareChildSource();
       }
     }
@@ -190,6 +194,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
     isPrepared = true;
     refreshSourceInfo(this.timeline);
     if (idForMaskingPeriodPreparation != null) {
+      Log.d("prepareDebug","MaskingMediaSource onChildSourceInfoRefreshed, going to call MaskingMediaPeriod createPeriod");
       Assertions.checkNotNull(unpreparedMaskingMediaPeriod)
           .createPeriod(idForMaskingPeriodPreparation);
     }

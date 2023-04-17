@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.analytics.PlayerId;
 import com.google.android.exoplayer2.drm.DrmSessionEventListener;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -218,6 +219,7 @@ public abstract class BaseMediaSource implements MediaSource {
     if (this.looper == null) {
       this.looper = looper;
       enabledMediaSourceCallers.add(caller);
+      Log.d("prepareDebug","BaseMediaSource, prepareSourceInternal");
       prepareSourceInternal(mediaTransferListener);
     } else if (timeline != null) {
       enable(caller);

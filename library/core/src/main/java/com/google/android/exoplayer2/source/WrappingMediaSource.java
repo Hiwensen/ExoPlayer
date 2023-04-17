@@ -21,6 +21,7 @@ import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.analytics.PlayerId;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.upstream.TransferListener;
+import com.google.android.exoplayer2.util.Log;
 
 /**
  * An abstract {@link MediaSource} wrapping a single child {@link MediaSource}.
@@ -71,6 +72,7 @@ public abstract class WrappingMediaSource extends CompositeMediaSource<Void> {
    * #releaseSourceInternal()}.
    */
   protected void prepareSourceInternal() {
+    Log.d("prepareDebug","WrappingMediaSource, prepareSourceInternal");
     prepareChildSource();
   }
 
@@ -127,6 +129,7 @@ public abstract class WrappingMediaSource extends CompositeMediaSource<Void> {
   @Override
   protected final void onChildSourceInfoRefreshed(
       Void childSourceId, MediaSource mediaSource, Timeline newTimeline) {
+    Log.d("prepareDebug","WrappingMediaSource onChildSourceInfoRefreshed");
     onChildSourceInfoRefreshed(newTimeline);
   }
 
@@ -209,6 +212,7 @@ public abstract class WrappingMediaSource extends CompositeMediaSource<Void> {
    * released in {@link #releaseSourceInternal()}.
    */
   protected final void prepareChildSource() {
+    Log.d("prepareDebug","WrappingMediaSource, prepareChildSource");
     prepareChildSource(CHILD_SOURCE_ID, mediaSource);
   }
 
