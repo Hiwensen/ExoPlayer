@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.SeekParameters;
 import com.google.android.exoplayer2.source.MediaSource.MediaPeriodId;
 import com.google.android.exoplayer2.trackselection.ExoTrackSelection;
 import com.google.android.exoplayer2.upstream.Allocator;
+import com.google.android.exoplayer2.util.Log;
 import java.io.IOException;
 import org.checkerframework.checker.nullness.compatqual.NullableType;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
@@ -127,6 +128,7 @@ public final class MaskingMediaPeriod implements MediaPeriod, MediaPeriod.Callba
     long preparePositionUs = getPreparePositionWithOverride(this.preparePositionUs);
     mediaPeriod = checkNotNull(mediaSource).createPeriod(id, allocator, preparePositionUs);
     if (callback != null) {
+      Log.d("prepareDebug","MaskingMediaPeriod createPeriod, going to call mediaPeriod prepare");
       mediaPeriod.prepare(/* callback= */ this, preparePositionUs);
     }
   }
@@ -142,6 +144,7 @@ public final class MaskingMediaPeriod implements MediaPeriod, MediaPeriod.Callba
   public void prepare(Callback callback, long positionUs) {
     this.callback = callback;
     if (mediaPeriod != null) {
+      Log.d("prepareDebug","MaskingMediaPeriod prepare, going to call mediaPeriod prepare");
       mediaPeriod.prepare(
           /* callback= */ this, getPreparePositionWithOverride(this.preparePositionUs));
     }
