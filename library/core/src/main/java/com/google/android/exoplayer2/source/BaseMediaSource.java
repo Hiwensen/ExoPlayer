@@ -73,7 +73,7 @@ public abstract class BaseMediaSource implements MediaSource {
   protected void disableInternal() {}
 
   /**
-   * Releases the source, see {@link #releaseSource(MediaSourceCaller)}. This method is called
+   * Releases the source, see {@link #releaseSource(MediaSourceCaller)}. This method is calledk
    * exactly once after each call to {@link #prepareSourceInternal(TransferListener)}.
    */
   protected abstract void releaseSourceInternal();
@@ -219,7 +219,7 @@ public abstract class BaseMediaSource implements MediaSource {
     if (this.looper == null) {
       this.looper = looper;
       enabledMediaSourceCallers.add(caller);
-      Log.d("prepareDebug","BaseMediaSource, prepareSourceInternal");
+      Log.d("prepareDebug","BaseMediaSource, prepareSource");
       prepareSourceInternal(mediaTransferListener);
     } else if (timeline != null) {
       enable(caller);
