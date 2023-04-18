@@ -117,7 +117,8 @@ public abstract class CompositeMediaSource<T> extends BaseMediaSource {
           Log.d("prepareDebug","CompositeMediaSource onSourceInfoRefreshed");
           onChildSourceInfoRefreshed(id, source, timeline);
         };
-    Log.d("prepareDebug","CompositeMediaSource prepareChildSource");
+    Log.d("prepareDebug","CompositeMediaSource prepareChildSource, "
+        + "mediaSource is HlsMediaSource" );
     ForwardingEventListener eventListener = new ForwardingEventListener(id);
     childSources.put(id, new MediaSourceAndListener<>(mediaSource, caller, eventListener));
     mediaSource.addEventListener(Assertions.checkNotNull(eventHandler), eventListener);

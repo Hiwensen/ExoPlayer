@@ -78,9 +78,10 @@ public final class MaskingMediaSource extends WrappingMediaSource {
 
   @Override
   public void prepareSourceInternal() {
+    Log.d("prepareDebug","MaskingMediaSource, prepareSourceInternal");
     if (!useLazyPreparation) {
       hasStartedPreparing = true;
-      Log.d("prepareDebug","MaskingMediaSource, prepareSourceInternal");
+      Log.d("prepareDebug","MaskingMediaSource, prepareSourceInternal, useLazyPreparation false");
       prepareChildSource();
     }
   }

@@ -63,6 +63,7 @@ public abstract class WrappingMediaSource extends CompositeMediaSource<Void> {
   @Override
   protected final void prepareSourceInternal(@Nullable TransferListener mediaTransferListener) {
     super.prepareSourceInternal(mediaTransferListener);
+    Log.d("prepareDebug","WrappingMediaSource, prepareSourceInternal, 66");
     prepareSourceInternal();
   }
 
@@ -72,7 +73,7 @@ public abstract class WrappingMediaSource extends CompositeMediaSource<Void> {
    * #releaseSourceInternal()}.
    */
   protected void prepareSourceInternal() {
-    Log.d("prepareDebug","WrappingMediaSource, prepareSourceInternal");
+    Log.d("prepareDebug","WrappingMediaSource, prepareSourceInternal, 76");
     prepareChildSource();
   }
 

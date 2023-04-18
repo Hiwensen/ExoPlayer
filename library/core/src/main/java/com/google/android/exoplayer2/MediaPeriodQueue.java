@@ -31,6 +31,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectorResult;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.HandlerWrapper;
+import com.google.android.exoplayer2.util.Log;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -187,6 +188,8 @@ import com.google.common.collect.ImmutableList;
         loading == null
             ? INITIAL_RENDERER_POSITION_OFFSET_US
             : (loading.getRendererOffset() + loading.info.durationUs - info.startPositionUs);
+    Log.d("prepareDebug","MediaPeriodQueue enqueueNextMediaPeriodHolder");
+
     MediaPeriodHolder newPeriodHolder =
         new MediaPeriodHolder(
             rendererCapabilities,

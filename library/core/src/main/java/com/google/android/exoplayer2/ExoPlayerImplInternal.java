@@ -708,6 +708,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     setState(playbackInfo.timeline.isEmpty() ? Player.STATE_ENDED : Player.STATE_BUFFERING);
     Log.d("prepareDebug", "ExoPlayerImplInternal, prepareInternal");
     mediaSourceList.prepare(bandwidthMeter.getTransferListener());
+    Log.d("prepareDebug", "ExoPlayerImplInternal, prepareInternal, going to do some work");
     handler.sendEmptyMessage(MSG_DO_SOME_WORK);
   }
 
@@ -875,6 +876,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     mediaClock.start();
     for (Renderer renderer : renderers) {
       if (isRendererEnabled(renderer)) {
+        Log.d("prepareDebug","startRenders");
         renderer.start();
       }
     }
@@ -1042,6 +1044,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       setState(Player.STATE_READY);
       pendingRecoverableRendererError = null; // Any pending error was successfully recovered from.
       if (shouldPlayWhenReady()) {
+        Log.d("prepareDebug","doSomeWork, setStateReady, startRenders");
         startRenderers();
       }
     } else if (playbackInfo.playbackState == Player.STATE_READY
@@ -1981,6 +1984,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       @Nullable
       MediaPeriodInfo info = queue.getNextMediaPeriodInfo(rendererPositionUs, playbackInfo);
       if (info != null) {
+        Log.d("prepareDebug","ExoImplInternal, maybeUpdateLoadingPeriod, going to enqueueNextMediaPeriodHolder");
         MediaPeriodHolder mediaPeriodHolder =
             queue.enqueueNextMediaPeriodHolder(
                 rendererCapabilities,
@@ -1989,7 +1993,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
                 mediaSourceList,
                 info,
                 emptyTrackSelectorResult);
-        Log.d("prepareDebug","ExoImplInternal,maybeUpdateLoadingPeriod, going to call mediePeriod preapre ");
+        Log.d("prepareDebug","ExoImplInternal, maybeUpdateLoadingPeriod, going to call mediePeriod prepare");
         mediaPeriodHolder.mediaPeriod.prepare(this, info.startPositionUs);
         if (queue.getPlayingPeriod() == mediaPeriodHolder) {
           resetRendererPosition(info.startPositionUs);
@@ -2305,6 +2309,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
   private void maybeContinueLoading() {
     shouldContinueLoading = shouldContinueLoading();
     if (shouldContinueLoading) {
+      Log.d("prepareDebug","ExoPlayerImplInternal, maybeContinueLoading, continueLoading");
       queue.getLoadingPeriod().continueLoading(rendererPositionUs);
     }
     updateIsLoading();
@@ -2502,6 +2507,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     mediaClock.onRendererEnabled(renderer);
     // Start the renderer if playing.
     if (playing) {
+      Log.d("prepareDebug","enableRenderer, playing render start");
       renderer.start();
     }
   }

@@ -104,6 +104,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
     this.trackSelectorResult = emptyTrackSelectorResult;
     sampleStreams = new SampleStream[rendererCapabilities.length];
     mayRetainStreamFlags = new boolean[rendererCapabilities.length];
+    Log.d("prepareDebug","MediaPeriodHolder create MediaPeriodHolder");
     mediaPeriod =
         createMediaPeriod(
             info.id, mediaSourceList, allocator, info.startPositionUs, info.endPositionUs);
