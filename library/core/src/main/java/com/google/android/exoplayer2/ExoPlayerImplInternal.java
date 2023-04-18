@@ -706,9 +706,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
         /* resetError= */ true);
     loadControl.onPrepared();
     setState(playbackInfo.timeline.isEmpty() ? Player.STATE_ENDED : Player.STATE_BUFFERING);
-    Log.d("prepareDebug", "going to prepare");
+    Log.d("prepareDebug", "ExoPlayerImplInternal, prepareInternal");
     mediaSourceList.prepare(bandwidthMeter.getTransferListener());
-    Log.d("prepareDebug", "prepare executed");
     handler.sendEmptyMessage(MSG_DO_SOME_WORK);
   }
 

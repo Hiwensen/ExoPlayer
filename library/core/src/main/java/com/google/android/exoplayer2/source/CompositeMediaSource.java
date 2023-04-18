@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.drm.DrmSession;
 import com.google.android.exoplayer2.drm.DrmSessionEventListener;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.UnknownNull;
 import com.google.android.exoplayer2.util.Util;
 import java.io.IOException;
@@ -112,7 +113,11 @@ public abstract class CompositeMediaSource<T> extends BaseMediaSource {
   protected final void prepareChildSource(@UnknownNull T id, MediaSource mediaSource) {
     Assertions.checkArgument(!childSources.containsKey(id));
     MediaSourceCaller caller =
-        (source, timeline) -> onChildSourceInfoRefreshed(id, source, timeline);
+        (source, timeline) -> {
+          Log.d("prepareDebug","CompositeMediaSource onSourceInfoRefreshed");
+          onChildSourceInfoRefreshed(id, source, timeline);
+        };
+    Log.d("prepareDebug","CompositeMediaSource prepareChildSource");
     ForwardingEventListener eventListener = new ForwardingEventListener(id);
     childSources.put(id, new MediaSourceAndListener<>(mediaSource, caller, eventListener));
     mediaSource.addEventListener(Assertions.checkNotNull(eventHandler), eventListener);

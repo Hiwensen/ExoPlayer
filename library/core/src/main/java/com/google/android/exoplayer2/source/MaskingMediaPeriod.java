@@ -142,6 +142,7 @@ public final class MaskingMediaPeriod implements MediaPeriod, MediaPeriod.Callba
 
   @Override
   public void prepare(Callback callback, long positionUs) {
+    Log.d("prepareDebug","MaskingMediaPeriod prepare,set callback");
     this.callback = callback;
     if (mediaPeriod != null) {
       Log.d("prepareDebug","MaskingMediaPeriod prepare, going to call mediaPeriod prepare");
@@ -243,6 +244,7 @@ public final class MaskingMediaPeriod implements MediaPeriod, MediaPeriod.Callba
 
   @Override
   public void onPrepared(MediaPeriod mediaPeriod) {
+    Log.d("prepareDebug","MaskingMediaPeriod onPrepared");
     castNonNull(callback).onPrepared(this);
     if (listener != null) {
       listener.onPrepareComplete(id);

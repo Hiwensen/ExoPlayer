@@ -80,6 +80,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
   public void prepareSourceInternal() {
     if (!useLazyPreparation) {
       hasStartedPreparing = true;
+      Log.d("prepareDebug","MaskingMediaSource, prepareSourceInternal");
       prepareChildSource();
     }
   }
@@ -107,6 +108,7 @@ public final class MaskingMediaSource extends WrappingMediaSource {
       unpreparedMaskingMediaPeriod = mediaPeriod;
       if (!hasStartedPreparing) {
         hasStartedPreparing = true;
+        Log.d("prepareDebug","MaskingMediaSource createPeriod, going to call prepareChildSource");
         prepareChildSource();
       }
     }

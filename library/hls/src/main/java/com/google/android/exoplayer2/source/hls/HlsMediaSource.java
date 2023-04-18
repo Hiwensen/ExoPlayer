@@ -421,6 +421,7 @@ public final class HlsMediaSource extends BaseMediaSource
         /* playbackLooper= */ checkNotNull(Looper.myLooper()), getPlayerId());
     MediaSourceEventListener.EventDispatcher eventDispatcher =
         createEventDispatcher(/* mediaPeriodId= */ null);
+    Log.d("prepareDebug","HlsMediaSource, prepareSourceInternal, going to call PlaylistTracker.start");
     playlistTracker.start(
         localConfiguration.uri, eventDispatcher, /* primaryPlaylistListener= */ this);
   }
