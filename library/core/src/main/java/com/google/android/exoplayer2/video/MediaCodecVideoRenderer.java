@@ -1411,6 +1411,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     renderedFirstFrameAfterEnable = true;
     if (!renderedFirstFrameAfterReset) {
       renderedFirstFrameAfterReset = true;
+      Log.d("prepareDebug","MediaCodecVideoRenderer, maybeNotifyRenderedFirstFrame, renderedFirstFrame");
       eventDispatcher.renderedFirstFrame(surface);
       haveReportedFirstFrameRenderedForCurrentSurface = true;
     }
@@ -1418,6 +1419,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
 
   private void maybeRenotifyRenderedFirstFrame() {
     if (haveReportedFirstFrameRenderedForCurrentSurface) {
+      Log.d("prepareDebug","MediaCodecVideoRenderer, maybeRenotifyRenderedFirstFrame, renderedFirstFrame");
       eventDispatcher.renderedFirstFrame(surface);
     }
   }

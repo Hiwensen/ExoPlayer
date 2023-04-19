@@ -1980,9 +1980,13 @@ import java.util.concurrent.TimeoutException;
                   newPlaybackInfo.playWhenReady, newPlaybackInfo.playbackState));
     }
     if (playbackStateChanged) {
+      if (newPlaybackInfo.playbackState == Player.STATE_READY) {
+        Log.d("prepareDebug","ExoPlayerImpl, going to call onPlaybackStateChanged ready");
+      }
       listeners.queueEvent(
           Player.EVENT_PLAYBACK_STATE_CHANGED,
-          listener -> listener.onPlaybackStateChanged(newPlaybackInfo.playbackState));
+          listener -> listener.onPlaybackStateChanged(newPlaybackInfo.playbackState)
+      );
     }
     if (playWhenReadyChanged) {
       listeners.queueEvent(

@@ -53,6 +53,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -472,6 +473,14 @@ public class PlayerActivity extends AppCompatActivity
         showControls();
       }
       updateButtonVisibility();
+      if (playbackState == Player.STATE_READY) {
+        Log.d("prepareDebug","PlayerActivity, PlayerListener callback, onPlaybackStateChanged, ready");
+      }
+    }
+
+    @Override
+    public void onRenderedFirstFrame() {
+      Log.d("prepareDebug","PlayerActivity, PlayerListener callback, onRenderedFirstFrame");
     }
 
     @Override
@@ -502,6 +511,7 @@ public class PlayerActivity extends AppCompatActivity
       }
       lastSeenTracks = tracks;
     }
+
   }
 
   private class PlayerErrorMessageProvider implements ErrorMessageProvider<PlaybackException> {

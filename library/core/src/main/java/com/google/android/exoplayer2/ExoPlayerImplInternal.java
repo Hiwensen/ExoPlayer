@@ -800,6 +800,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       updatePlaybackPositions();
     } else {
       if (playbackInfo.playbackState == Player.STATE_READY) {
+        Log.d("prepareDebug","ExoPlayerImplInternal, setPlayWhenReadyInternal, startRenders");
         startRenderers();
         handler.sendEmptyMessage(MSG_DO_SOME_WORK);
       } else if (playbackInfo.playbackState == Player.STATE_BUFFERING) {
@@ -876,7 +877,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
     mediaClock.start();
     for (Renderer renderer : renderers) {
       if (isRendererEnabled(renderer)) {
-        Log.d("prepareDebug","startRenders");
+        Log.d("prepareDebug","ExoPlayerImplInternal, startRenders,"+ renderer.getTrackType() +
+            "," + renderer.getName());
         renderer.start();
       }
     }
@@ -1041,10 +1043,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
       stopRenderers();
     } else if (playbackInfo.playbackState == Player.STATE_BUFFERING
         && shouldTransitionToReadyState(renderersAllowPlayback)) {
+      Log.d("prepareDebug","ExoPlayerImplInternal, doSomeWork, setStateReady");
       setState(Player.STATE_READY);
       pendingRecoverableRendererError = null; // Any pending error was successfully recovered from.
       if (shouldPlayWhenReady()) {
-        Log.d("prepareDebug","doSomeWork, setStateReady, startRenders");
+        Log.d("prepareDebug","ExoPlayerImplInternal, doSomeWork, startRenders");
         startRenderers();
       }
     } else if (playbackInfo.playbackState == Player.STATE_READY
