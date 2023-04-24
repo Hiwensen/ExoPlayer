@@ -272,6 +272,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
    */
   public void prepareWithMultivariantPlaylistInfo(
       TrackGroup[] trackGroups, int primaryTrackGroupIndex, int... optionalTrackGroupsIndices) {
+    Log.d("periodDebug", "HlsSampleStreamWrapper,prepareWithMultivariantPlaylistInfo");
     this.trackGroups = createTrackGroupArrayWithDrmInfo(trackGroups);
     optionalTrackGroups = new HashSet<>();
     for (int optionalTrackGroupIndex : optionalTrackGroupsIndices) {

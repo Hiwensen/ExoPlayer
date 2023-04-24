@@ -889,6 +889,8 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
   private class SampleStreamWrapperCallback implements HlsSampleStreamWrapper.Callback {
     @Override
     public void onPrepared() {
+      Log.d("periodDebug", "HlsMediaPeriod,SampleStreamWrapperCallback, onPrepared");
+
       if (--pendingPrepareCount > 0) {
         return;
       }
