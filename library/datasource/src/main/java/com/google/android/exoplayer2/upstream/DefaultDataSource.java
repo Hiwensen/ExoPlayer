@@ -233,6 +233,7 @@ public final class DefaultDataSource implements DataSource {
 
   @Override
   public long open(DataSpec dataSpec) throws IOException {
+    Log.d("periodDebug","DefaultDataSource, open");
     Assertions.checkState(dataSource == null);
     // Choose the correct source for the scheme.
     String scheme = dataSpec.uri.getScheme();

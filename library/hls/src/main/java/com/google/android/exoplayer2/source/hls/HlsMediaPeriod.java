@@ -517,6 +517,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
               positionUs);
       manifestUrlIndicesPerWrapper.add(new int[] {i});
       sampleStreamWrappers.add(sampleStreamWrapper);
+      Log.d("periodDebug", "HlsMediaPeriod, subtitles, prepareWithMultivariantPlaylistInfo");
       sampleStreamWrapper.prepareWithMultivariantPlaylistInfo(
           new TrackGroup[] {new TrackGroup(sampleStreamWrapperUid, subtitleRendition.format)},
           /* primaryTrackGroupIndex= */ 0);
@@ -573,6 +574,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
     int[] variantTypes = new int[multivariantPlaylist.variants.size()];
     int videoVariantCount = 0;
     int audioVariantCount = 0;
+    Log.d("periodDebug","HlsMediaPeriod, buildAndPrepareMainSampleStreamWrapper");
     for (int i = 0; i < multivariantPlaylist.variants.size(); i++) {
       Variant variant = multivariantPlaylist.variants.get(i);
       Format format = variant.format;
@@ -702,6 +704,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
       List<HlsSampleStreamWrapper> sampleStreamWrappers,
       List<int[]> manifestUrlsIndicesPerWrapper,
       Map<String, DrmInitData> overridingDrmInitData) {
+    Log.d("periodDebug","HlsMediaPeriod, buildAndPrepareAudioSampleStreamWrappers");
     ArrayList<Uri> scratchPlaylistUrls =
         new ArrayList<>(/* initialCapacity= */ audioRenditions.size());
     ArrayList<Format> scratchPlaylistFormats =

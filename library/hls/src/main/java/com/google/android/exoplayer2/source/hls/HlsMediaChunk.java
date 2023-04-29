@@ -18,6 +18,7 @@ package com.google.android.exoplayer2.source.hls;
 import static com.google.android.exoplayer2.upstream.DataSpec.FLAG_MIGHT_NOT_USE_FULL_NETWORK_SPEED;
 
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Format;
@@ -383,6 +384,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
   @Override
   public void load() throws IOException {
     // output == null means init() hasn't been called.
+    Log.d("periodDebug", "HlsMediaChunk, load");
     Assertions.checkNotNull(output);
     if (extractor == null && previousExtractor != null && previousExtractor.isReusable()) {
       extractor = previousExtractor;
@@ -417,6 +419,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
   @RequiresNonNull("output")
   private void maybeLoadInitData() throws IOException {
+    Log.d("periodDebug", "HlsMediaChunk, maybeLoadInitData");
     if (!initDataLoadRequired) {
       return;
     }
@@ -434,6 +437,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
   @RequiresNonNull("output")
   private void loadMedia() throws IOException {
+    Log.d("periodDebug", "HlsMediaChunk, loadMedia");
     feedDataToExtractor(
         dataSource, dataSpec, mediaSegmentEncrypted, /* initializeTimestampAdjuster= */ true);
   }
@@ -463,6 +467,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
       loadDataSpec = dataSpec.subrange(nextLoadPosition);
       skipLoadedBytes = false;
     }
+    Log.d("periodDebug", "HlsMediaChunk, feedDataToExtractor");
     try {
       ExtractorInput input =
           prepareExtraction(dataSource, loadDataSpec, initializeTimestampAdjuster);
@@ -470,6 +475,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
         input.skipFully(nextLoadPosition);
       }
       try {
+        Log.d("periodDebug", "HlsMediaChunk, extractor.read");
         while (!loadCanceled && extractor.read(input)) {}
       } catch (EOFException e) {
         if ((trackFormat.roleFlags & C.ROLE_FLAG_TRICK_PLAY) != 0) {
@@ -492,6 +498,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
   private DefaultExtractorInput prepareExtraction(
       DataSource dataSource, DataSpec dataSpec, boolean initializeTimestampAdjuster)
       throws IOException {
+    Log.d("periodDebug", "HlsMediaChunk, prepareExtraction");
     long bytesToRead = dataSource.open(dataSpec);
     if (initializeTimestampAdjuster) {
       try {

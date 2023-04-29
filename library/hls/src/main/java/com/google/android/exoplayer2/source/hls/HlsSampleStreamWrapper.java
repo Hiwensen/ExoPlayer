@@ -279,6 +279,8 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
       optionalTrackGroups.add(this.trackGroups.get(optionalTrackGroupIndex));
     }
     this.primaryTrackGroupIndex = primaryTrackGroupIndex;
+    Log.d("periodDebug", "HlsSampleStreamWrapper,prepareWithMultivariantPlaylistInfo,"
+        + "going to call onPrepared");
     handler.post(callback::onPrepared);
     setIsPrepared();
   }
@@ -743,6 +745,8 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
       return false;
     }
 
+    Log.d("periodDebug", "HlsSampleStreamWrapper, continueLoading, uid:"+ uid +
+        ", trackType:" + trackType);
     List<HlsMediaChunk> chunkQueue;
     long loadPositionUs;
     if (isPendingReset()) {
@@ -787,6 +791,8 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
       initMediaChunkLoad((HlsMediaChunk) loadable);
     }
     loadingChunk = loadable;
+    Log.d("periodDebug", "HlsSampleStreamWrapper, continueLoading, "
+        + "going to call startLoading," + loadable.type + "," + trackType + "," + loadable.trackFormat);
     long elapsedRealtimeMs =
         loader.startLoading(
             loadable, this, loadErrorHandlingPolicy.getMinimumLoadableRetryCount(loadable.type));
@@ -841,6 +847,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
   @Override
   public void onLoadCompleted(Chunk loadable, long elapsedRealtimeMs, long loadDurationMs) {
+    Log.d("periodDebug", "HlsSampleStreamWrapper, onLoadCompleted, chunk ");
     loadingChunk = null;
     chunkSource.onChunkLoadCompleted(loadable);
     LoadEventInfo loadEventInfo =
@@ -863,8 +870,11 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
         loadable.startTimeUs,
         loadable.endTimeUs);
     if (!prepared) {
+      Log.d("periodDebug", "HlsSampleStreamWrapper, onLoadCompleted, "
+          + "going to call continueLoading ");
       continueLoading(lastSeekPositionUs);
     } else {
+      Log.d("periodDebug", "HlsSampleStreamWrapper, onLoadCompleted, going to call onContinueLoadingRequested ");
       callback.onContinueLoadingRequested(this);
     }
   }

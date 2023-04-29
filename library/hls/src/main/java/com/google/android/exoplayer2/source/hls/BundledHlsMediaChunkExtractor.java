@@ -64,6 +64,7 @@ public final class BundledHlsMediaChunkExtractor implements HlsMediaChunkExtract
 
   @Override
   public boolean read(ExtractorInput extractorInput) throws IOException {
+//    Log.d("periodDebug", "BundledHlsMediaChunkExtractor, read");
     return extractor.read(extractorInput, POSITION_HOLDER) == Extractor.RESULT_CONTINUE;
   }
 

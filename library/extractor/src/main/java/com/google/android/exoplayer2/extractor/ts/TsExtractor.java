@@ -298,6 +298,7 @@ public final class TsExtractor implements Extractor {
   @Override
   public @ReadResult int read(ExtractorInput input, PositionHolder seekPosition)
       throws IOException {
+//    Log.d("periodDebug", "TsExtractor, read");
     long inputLength = input.getLength();
     if (tracksEnded) {
       boolean canReadDuration = inputLength != C.LENGTH_UNSET && mode != MODE_HLS;

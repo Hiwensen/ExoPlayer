@@ -365,6 +365,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
   /** Opens the source to read the specified data. */
   @Override
   public long open(DataSpec dataSpec) throws HttpDataSourceException {
+    Log.d("periodDebug","DefaultHttpDataSource, open");
     this.dataSpec = dataSpec;
     bytesRead = 0;
     bytesToRead = 0;
@@ -484,6 +485,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
   @Override
   public int read(byte[] buffer, int offset, int length) throws HttpDataSourceException {
     try {
+      Log.d("periodDebug","DefaultHttpDataSource, read");
       return readInternal(buffer, offset, length);
     } catch (IOException e) {
       throw HttpDataSourceException.createForIOException(

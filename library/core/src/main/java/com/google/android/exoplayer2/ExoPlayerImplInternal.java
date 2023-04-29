@@ -459,6 +459,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
   @Override
   public void onContinueLoadingRequested(MediaPeriod source) {
     Log.d("prepareDebug","ExoPlayerImplInternal,onContinueLoadingRequested");
+    Log.d("periodDebug","ExoPlayerImplInternal,onContinueLoadingRequested");
     handler.obtainMessage(MSG_SOURCE_CONTINUE_LOADING_REQUESTED, source).sendToTarget();
   }
 

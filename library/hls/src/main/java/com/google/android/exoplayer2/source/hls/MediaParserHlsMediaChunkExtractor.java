@@ -31,6 +31,7 @@ import android.media.MediaParser;
 import android.media.MediaParser.OutputConsumer;
 import android.media.MediaParser.SeekPoint;
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import com.google.android.exoplayer2.Format;
@@ -182,6 +183,7 @@ public final class MediaParserHlsMediaChunkExtractor implements HlsMediaChunkExt
 
   @Override
   public boolean read(ExtractorInput extractorInput) throws IOException {
+    Log.d("periodDebug", "MediaParserHlsMediaChunkExtractor, read");
     extractorInput.skipFully(pendingSkipBytes);
     pendingSkipBytes = 0;
     inputReaderAdapter.setDataReader(extractorInput, extractorInput.getLength());

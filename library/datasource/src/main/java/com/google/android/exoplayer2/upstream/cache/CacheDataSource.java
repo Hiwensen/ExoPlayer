@@ -40,6 +40,7 @@ import com.google.android.exoplayer2.upstream.TeeDataSource;
 import com.google.android.exoplayer2.upstream.TransferListener;
 import com.google.android.exoplayer2.upstream.cache.Cache.CacheException;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.PriorityTaskManager;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.IOException;
@@ -617,6 +618,7 @@ public final class CacheDataSource implements DataSource {
 
   @Override
   public int read(byte[] buffer, int offset, int length) throws IOException {
+    Log.d("periodDebug","CacheDataSource, read");
     if (length == 0) {
       return 0;
     }
