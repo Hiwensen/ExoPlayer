@@ -28,6 +28,7 @@ import com.google.android.exoplayer2.upstream.Allocation;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.upstream.DataReader;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.Util;
 import java.io.EOFException;
@@ -174,6 +175,7 @@ import java.util.Arrays;
 
   public int sampleData(DataReader input, int length, boolean allowEndOfInput) throws IOException {
     length = preAppend(length);
+    Log.d("queueDebug","SampleDataQueue, sampleData, 178");
     int bytesAppended =
         input.read(
             writeAllocationNode.allocation.data,
@@ -190,6 +192,8 @@ import java.util.Arrays;
   }
 
   public void sampleData(ParsableByteArray buffer, int length) {
+    Log.d("queueDebug","SampleDataQueue, sampleData, 195");
+
     while (length > 0) {
       int bytesAppended = preAppend(length);
       buffer.readBytes(
@@ -265,6 +269,7 @@ import java.util.Arrays;
       DecoderInputBuffer buffer,
       SampleExtrasHolder extrasHolder,
       ParsableByteArray scratch) {
+//    Log.d("periodDebug","readSampleData, 272");
     if (buffer.isEncrypted()) {
       allocationNode = readEncryptionData(allocationNode, buffer, extrasHolder, scratch);
     }
@@ -314,6 +319,8 @@ import java.util.Arrays;
       DecoderInputBuffer buffer,
       SampleExtrasHolder extrasHolder,
       ParsableByteArray scratch) {
+    Log.d("periodDebug","readEncryptionData");
+
     long offset = extrasHolder.offset;
 
     // Read the signal byte.
@@ -402,6 +409,8 @@ import java.util.Arrays;
       AllocationNode allocationNode, long absolutePosition, ByteBuffer target, int length) {
     allocationNode = getNodeContainingPosition(allocationNode, absolutePosition);
     int remaining = length;
+    Log.d("queueDebug","SampleDataQueue, readData 409, going to loop"
+        + " read data to decoderInputBuffer");
     while (remaining > 0) {
       int toCopy = min(remaining, (int) (allocationNode.endPosition - absolutePosition));
       Allocation allocation = allocationNode.allocation;
@@ -428,6 +437,8 @@ import java.util.Arrays;
       AllocationNode allocationNode, long absolutePosition, byte[] target, int length) {
     allocationNode = getNodeContainingPosition(allocationNode, absolutePosition);
     int remaining = length;
+    Log.d("queueDebug","SampleDataQueue, readData 437, going to loop"
+        + " read data to decoderInputBuffer");
     while (remaining > 0) {
       int toCopy = min(remaining, (int) (allocationNode.endPosition - absolutePosition));
       Allocation allocation = allocationNode.allocation;

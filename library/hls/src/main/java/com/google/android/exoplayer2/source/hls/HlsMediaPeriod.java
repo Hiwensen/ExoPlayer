@@ -378,10 +378,12 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsPlaylistTracker.Pla
   @Override
   public boolean continueLoading(long positionUs) {
     Log.d("prepareDebug","HlsMediaPeriod, continueLoading");
+    Log.d("periodDebug","HlsMediaPeriod, continueLoading");
     if (trackGroups == null) {
       // Preparation is still going on.
       for (HlsSampleStreamWrapper wrapper : sampleStreamWrappers) {
         Log.d("prepareDebug","HlsMediaPeriod, wrapper.continuePreparing()");
+        Log.d("periodDebug","HlsMediaPeriod, wrapper.continuePreparing()");
         wrapper.continuePreparing();
       }
       return false;

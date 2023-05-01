@@ -70,6 +70,7 @@ public final class PesReader implements TsPayloadReader {
       ExtractorOutput extractorOutput,
       TrackIdGenerator idGenerator) {
     this.timestampAdjuster = timestampAdjuster;
+    Log.d("queueDebug","PesReader, init, going to create tracks with extractorOutput");
     reader.createTracks(extractorOutput, idGenerator);
   }
 

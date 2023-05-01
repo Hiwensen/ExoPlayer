@@ -265,6 +265,7 @@ public final class MaskingMediaPeriod implements MediaPeriod, MediaPeriod.Callba
   @Override
   public void onPrepared(MediaPeriod mediaPeriod) {
     Log.d("prepareDebug", "MaskingMediaPeriod onPrepared");
+    Log.d("periodDebug", "MaskingMediaPeriod onPrepared");
     castNonNull(callback).onPrepared(this);
     if (listener != null) {
       listener.onPrepareComplete(id);

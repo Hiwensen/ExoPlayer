@@ -20,6 +20,7 @@ import static java.lang.Math.min;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.extractor.ExtractorOutput;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.TimestampAdjuster;
 import com.google.android.exoplayer2.util.Util;
@@ -52,6 +53,7 @@ public final class SectionReader implements TsPayloadReader {
       TimestampAdjuster timestampAdjuster,
       ExtractorOutput extractorOutput,
       TrackIdGenerator idGenerator) {
+    Log.d("queueDebug","SectionReader, init");
     reader.init(timestampAdjuster, extractorOutput, idGenerator);
     waitingForPayloadStart = true;
   }

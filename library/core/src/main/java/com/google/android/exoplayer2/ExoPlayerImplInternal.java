@@ -453,6 +453,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
   @Override
   public void onPrepared(MediaPeriod source) {
     Log.d("prepareDebug","ExoPlayerImplInternal, onPrepared");
+    Log.d("periodDebug","ExoPlayerImplInternal, onPrepared");
     handler.obtainMessage(MSG_PERIOD_PREPARED, source).sendToTarget();
   }
 
@@ -1314,6 +1315,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
             periodPositionUs - backBufferDurationUs, retainBackBufferFromKeyframe);
       }
       resetRendererPosition(periodPositionUs);
+      Log.d("periodDebug","seekToPeriodPosition, maybeContinueLoading");
       maybeContinueLoading();
     } else {
       // New period has not been prepared.
@@ -1749,6 +1751,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     }
     handleLoadingMediaPeriodChanged(/* loadingTrackSelectionChanged= */ true);
     if (playbackInfo.playbackState != Player.STATE_ENDED) {
+      Log.d("periodDebug","reselectTracksInternal, maybeContinueLoading");
       maybeContinueLoading();
       updatePlaybackPositions();
       handler.sendEmptyMessage(MSG_DO_SOME_WORK);
@@ -2011,6 +2014,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       shouldContinueLoading = isLoadingPossible();
       updateIsLoading();
     } else {
+      Log.d("periodDebug","maybeUpdateLoadingPeriod, maybeContinueLoading");
       maybeContinueLoading();
     }
   }
@@ -2247,6 +2251,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
   private void handlePeriodPrepared(MediaPeriod mediaPeriod) throws ExoPlaybackException {
     if (!queue.isLoading(mediaPeriod)) {
       // Stale event.
+      Log.d("periodDebug","ExoPlayerImplInternal, handlePeriodPrepared, stale event");
       return;
     }
     MediaPeriodHolder loadingPeriodHolder = queue.getLoadingPeriod();
@@ -2256,6 +2261,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
         loadingPeriodHolder.getTrackGroups(), loadingPeriodHolder.getTrackSelectorResult());
     if (loadingPeriodHolder == queue.getPlayingPeriod()) {
       // This is the first prepared period, so update the position and the renderers.
+      Log.d("periodDebug","ExoPlayerImplInternal, handlePeriodPrepared, first prepared period");
       resetRendererPosition(loadingPeriodHolder.info.startPositionUs);
       enableRenderers();
       playbackInfo =
@@ -2267,6 +2273,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
               /* reportDiscontinuity= */ false,
               /* ignored */ Player.DISCONTINUITY_REASON_INTERNAL);
     }
+    Log.d("periodDebug","ExoPlayerImplInternal, handlePeriodPrepared, maybeContinueLoading");
     maybeContinueLoading();
   }
 
@@ -2276,6 +2283,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       return;
     }
     queue.reevaluateBuffer(rendererPositionUs);
+    Log.d("periodDebug","ExoPlayerImplInternal, handleContinueLoadingRequested, maybeContinueLoading");
     maybeContinueLoading();
   }
 
@@ -2313,8 +2321,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
   private void maybeContinueLoading() {
     shouldContinueLoading = shouldContinueLoading();
     if (shouldContinueLoading) {
-      Log.d("prepareDebug","ExoPlayerImplInternal, maybeContinueLoading, continueLoading");
+      Log.d("periodDebug", "ExoPlayerImplInternal, maybeContinueLoading, continueLoading");
       queue.getLoadingPeriod().continueLoading(rendererPositionUs);
+    } else {
+      Log.d("periodDebug", "ExoPlayerImplInternal, maybeContinueLoading, don't continueLoading");
     }
     updateIsLoading();
   }

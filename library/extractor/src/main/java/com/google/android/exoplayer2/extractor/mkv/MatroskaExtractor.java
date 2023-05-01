@@ -1423,6 +1423,7 @@ public class MatroskaExtractor implements Extractor {
         } else {
           // Append supplemental data.
           int supplementalDataSize = supplementalData.limit();
+          Log.d("queueDebug","MatroskaExtractor, commitSampleToOutput");
           track.output.sampleData(
               supplementalData, supplementalDataSize, TrackOutput.SAMPLE_DATA_PART_SUPPLEMENTAL);
           size += supplementalDataSize;
@@ -1461,6 +1462,7 @@ public class MatroskaExtractor implements Extractor {
   @RequiresNonNull("#2.output")
   private int writeSampleData(ExtractorInput input, Track track, int size, boolean isBlockGroup)
       throws IOException {
+    Log.d("queueDebug","MatroskaExtractor, writeSampleData, start");
     if (CODEC_ID_SUBRIP.equals(track.codecId)) {
       writeSubtitleSampleData(input, SUBRIP_PREFIX, size);
       return finishWriteSampleData();
@@ -1472,6 +1474,7 @@ public class MatroskaExtractor implements Extractor {
       return finishWriteSampleData();
     }
 
+    Log.d("queueDebug","MatroskaExtractor, writeSampleData, 1476");
     TrackOutput output = track.output;
     if (!sampleEncodingHandled) {
       if (track.hasContentEncryption) {
@@ -1500,10 +1503,12 @@ public class MatroskaExtractor implements Extractor {
             scratch.getData()[0] =
                 (byte) (ENCRYPTION_IV_SIZE | (hasSubsampleEncryption ? 0x80 : 0x00));
             scratch.setPosition(0);
+            Log.d("queueDebug","MatroskaExtractor, writeSampleData, 1504");
             output.sampleData(scratch, 1, TrackOutput.SAMPLE_DATA_PART_ENCRYPTION);
             sampleBytesWritten++;
             // Write the IV.
             encryptionInitializationVector.setPosition(0);
+            Log.d("queueDebug","MatroskaExtractor, writeSampleData, 1509");
             output.sampleData(
                 encryptionInitializationVector,
                 ENCRYPTION_IV_SIZE,
@@ -1555,6 +1560,7 @@ public class MatroskaExtractor implements Extractor {
               encryptionSubsampleDataBuffer.putInt(0);
             }
             encryptionSubsampleData.reset(encryptionSubsampleDataBuffer.array(), subsampleDataSize);
+            Log.d("queueDebug","MatroskaExtractor, writeSampleData, 1561");
             output.sampleData(
                 encryptionSubsampleData,
                 subsampleDataSize,
@@ -1578,6 +1584,7 @@ public class MatroskaExtractor implements Extractor {
         scratch.getData()[1] = (byte) ((sampleSize >> 16) & 0xFF);
         scratch.getData()[2] = (byte) ((sampleSize >> 8) & 0xFF);
         scratch.getData()[3] = (byte) (sampleSize & 0xFF);
+        Log.d("queueDebug","MatroskaExtractor, writeSampleData, 1585");
         output.sampleData(scratch, 4, TrackOutput.SAMPLE_DATA_PART_SUPPLEMENTAL);
         sampleBytesWritten += 4;
       }

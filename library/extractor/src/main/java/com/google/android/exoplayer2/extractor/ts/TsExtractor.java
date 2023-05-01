@@ -37,6 +37,7 @@ import com.google.android.exoplayer2.extractor.ts.TsPayloadReader.DvbSubtitleInf
 import com.google.android.exoplayer2.extractor.ts.TsPayloadReader.EsInfo;
 import com.google.android.exoplayer2.extractor.ts.TsPayloadReader.TrackIdGenerator;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.ParsableBitArray;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.TimestampAdjuster;
@@ -419,6 +420,7 @@ public final class TsExtractor implements Extractor {
   }
 
   private boolean fillBufferWithAtLeastOnePacket(ExtractorInput input) throws IOException {
+    Log.d("periodDebug","TsExtractor, fillBufferWithAtLeastOnePacket");
     byte[] data = tsPacketBuffer.getData();
     // Shift bytes to the start of the buffer if there isn't enough space left at the end.
     if (BUFFER_SIZE - tsPacketBuffer.getPosition() < TS_PACKET_SIZE) {
@@ -431,6 +433,7 @@ public final class TsExtractor implements Extractor {
     // Read more bytes until we have at least one packet.
     while (tsPacketBuffer.bytesLeft() < TS_PACKET_SIZE) {
       int limit = tsPacketBuffer.limit();
+      Log.d("periodDebug","TsExtractor, fillBufferWithAtLeastOnePacket, read data to taPacketBuffer");
       int read = input.read(data, limit, BUFFER_SIZE - limit);
       if (read == C.RESULT_END_OF_INPUT) {
         return false;

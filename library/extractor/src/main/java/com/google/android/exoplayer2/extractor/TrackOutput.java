@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.upstream.DataReader;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import java.io.EOFException;
 import java.io.IOException;
@@ -162,6 +163,7 @@ public interface TrackOutput {
    * SAMPLE_DATA_PART_MAIN)}.
    */
   default void sampleData(ParsableByteArray data, int length) {
+    Log.d("queueDebug","TrackOutput, sampleData, 166");
     sampleData(data, length, SAMPLE_DATA_PART_MAIN);
   }
 

@@ -587,12 +587,14 @@ public class SampleQueue implements TrackOutput {
   public final int sampleData(
       DataReader input, int length, boolean allowEndOfInput, @SampleDataPart int sampleDataPart)
       throws IOException {
+    Log.d("queueDebug","SampleQueue, sampleData 590");
     return sampleDataQueue.sampleData(input, length, allowEndOfInput);
   }
 
   @Override
   public final void sampleData(
       ParsableByteArray data, int length, @SampleDataPart int sampleDataPart) {
+    Log.d("queueDebug","SampleQueue, sampleData 597");
     sampleDataQueue.sampleData(data, length);
   }
 

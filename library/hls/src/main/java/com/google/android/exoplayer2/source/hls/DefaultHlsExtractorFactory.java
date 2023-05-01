@@ -34,6 +34,7 @@ import com.google.android.exoplayer2.extractor.ts.DefaultTsPayloadReaderFactory;
 import com.google.android.exoplayer2.extractor.ts.TsExtractor;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.util.FileTypes;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.TimestampAdjuster;
 import com.google.common.primitives.Ints;
@@ -125,6 +126,8 @@ public final class DefaultHlsExtractorFactory implements HlsExtractorFactory {
           checkNotNull(
               createExtractorByFileType(fileType, format, muxedCaptionFormats, timestampAdjuster));
       if (sniffQuietly(extractor, sniffingExtractorInput)) {
+        Log.d("periodDebug","DefaultHlsExtractorFactory, createExtractor, "
+            + "return BundledHlsMediaChunkExtractor 130");
         return new BundledHlsMediaChunkExtractor(extractor, format, timestampAdjuster);
       }
       if (fallBackExtractor == null
@@ -138,6 +141,8 @@ public final class DefaultHlsExtractorFactory implements HlsExtractorFactory {
       }
     }
 
+    Log.d("periodDebug","DefaultHlsExtractorFactory, createExtractor, "
+        + "return BundledHlsMediaChunkExtractor 143");
     return new BundledHlsMediaChunkExtractor(
         checkNotNull(fallBackExtractor), format, timestampAdjuster);
   }

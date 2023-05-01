@@ -21,7 +21,6 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
 import com.google.android.exoplayer2.upstream.DataReader;
 import com.google.android.exoplayer2.util.Assertions;
-import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import java.io.EOFException;
 import java.io.IOException;
@@ -289,7 +288,7 @@ public final class DefaultExtractorInput implements ExtractorInput {
     if (Thread.interrupted()) {
       throw new InterruptedIOException();
     }
-    Log.d("periodDebug","DefaultExtractorInput, readFromUpstream");
+//    Log.d("periodDebug","DefaultExtractorInput, readFromUpstream");
     int bytesRead = dataReader.read(target, offset + bytesAlreadyRead, length - bytesAlreadyRead);
     if (bytesRead == C.RESULT_END_OF_INPUT) {
       if (bytesAlreadyRead == 0 && allowEndOfInput) {

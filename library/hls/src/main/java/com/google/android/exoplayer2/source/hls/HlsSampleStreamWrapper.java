@@ -257,6 +257,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
   public void continuePreparing() {
     if (!prepared) {
+      Log.d("periodDebug","HlsSampleStreamWrapper, continuePreparing");
       continueLoading(lastSeekPositionUs);
     }
   }
@@ -1026,6 +1027,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
     for (SampleQueue sampleQueue : sampleQueues) {
       sampleQueueWriteIndicesBuilder.add(sampleQueue.getWriteIndex());
     }
+    Log.d("periodDebug", "HlsSampleStreamWrapper, initMediaChunkLoad, set output" );
     chunk.init(/* output= */ this, sampleQueueWriteIndicesBuilder.build());
     for (HlsSampleQueue sampleQueue : sampleQueues) {
       sampleQueue.setSourceChunk(chunk);
@@ -1067,6 +1069,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
   @Override
   public TrackOutput track(int id, int type) {
     @Nullable TrackOutput trackOutput = null;
+    Log.d("queueDebug","HlsSampleStreamWrapper, track");
     if (MAPPABLE_TYPES.contains(type)) {
       // Track types in MAPPABLE_TYPES are handled manually to ignore IDs.
       trackOutput = getMappedTrackOutput(id, type);

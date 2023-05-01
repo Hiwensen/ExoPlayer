@@ -33,6 +33,7 @@ import com.google.android.exoplayer2.extractor.mkv.MatroskaExtractor;
 import com.google.android.exoplayer2.extractor.mp4.FragmentedMp4Extractor;
 import com.google.android.exoplayer2.upstream.DataReader;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import java.io.IOException;
@@ -224,11 +225,13 @@ public final class BundledChunkExtractor implements ExtractorOutput, ChunkExtrac
     public int sampleData(
         DataReader input, int length, boolean allowEndOfInput, @SampleDataPart int sampleDataPart)
         throws IOException {
+      Log.d("queueDebug","BundledChunkExtractor, sampleData, 228");
       return castNonNull(trackOutput).sampleData(input, length, allowEndOfInput);
     }
 
     @Override
     public void sampleData(ParsableByteArray data, int length, @SampleDataPart int sampleDataPart) {
+      Log.d("queueDebug","BundledChunkExtractor, sampleData, 228");
       castNonNull(trackOutput).sampleData(data, length);
     }
 

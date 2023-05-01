@@ -1765,7 +1765,7 @@ public class FragmentedMp4Extractor implements Extractor {
       if (encryptionBox == null) {
         return 0;
       }
-
+      Log.d("queueDebug","FragmentMp4, outputSampleEncryptionData");
       ParsableByteArray initializationVectorData;
       int vectorSize;
       if (encryptionBox.perSampleIvSize != 0) {

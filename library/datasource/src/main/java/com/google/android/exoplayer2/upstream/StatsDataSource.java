@@ -19,7 +19,6 @@ import android.net.Uri;
 import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.util.Assertions;
-import com.google.android.exoplayer2.util.Log;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -90,7 +89,7 @@ public final class StatsDataSource implements DataSource {
 
   @Override
   public int read(byte[] buffer, int offset, int length) throws IOException {
-    Log.d("periodDebug","StatsDataSource, read");
+//    Log.d("periodDebug","StatsDataSource, read");
     int bytesRead = dataSource.read(buffer, offset, length);
     if (bytesRead != C.RESULT_END_OF_INPUT) {
       this.bytesRead += bytesRead;

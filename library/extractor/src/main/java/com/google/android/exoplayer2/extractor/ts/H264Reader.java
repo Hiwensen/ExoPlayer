@@ -26,6 +26,7 @@ import com.google.android.exoplayer2.extractor.TrackOutput;
 import com.google.android.exoplayer2.extractor.ts.TsPayloadReader.TrackIdGenerator;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.CodecSpecificDataUtil;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.NalUnitUtil;
 import com.google.android.exoplayer2.util.NalUnitUtil.SpsData;
@@ -104,6 +105,7 @@ public final class H264Reader implements ElementaryStreamReader {
   public void createTracks(ExtractorOutput extractorOutput, TrackIdGenerator idGenerator) {
     idGenerator.generateNewId();
     formatId = idGenerator.getFormatId();
+    Log.d("queueDebug","H264Reader, createTracks");
     output = extractorOutput.track(idGenerator.getTrackId(), C.TRACK_TYPE_VIDEO);
     sampleReader = new SampleReader(output, allowNonIdrKeyframes, detectAccessUnits);
     seiReader.createTracks(extractorOutput, idGenerator);
@@ -127,6 +129,7 @@ public final class H264Reader implements ElementaryStreamReader {
 
     // Append the data to the buffer.
     totalBytesWritten += data.bytesLeft();
+    Log.d("queueDebug","H264Reader, consume");
     output.sampleData(data, data.bytesLeft());
 
     // Scan the appended data, processing NAL units as they are encountered

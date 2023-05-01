@@ -389,6 +389,7 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
     if (extractor == null && previousExtractor != null && previousExtractor.isReusable()) {
       extractor = previousExtractor;
       initDataLoadRequired = false;
+
     }
     maybeLoadInitData();
     if (!loadCanceled) {

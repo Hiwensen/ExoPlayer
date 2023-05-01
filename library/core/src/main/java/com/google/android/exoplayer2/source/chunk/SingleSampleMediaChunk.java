@@ -24,6 +24,7 @@ import com.google.android.exoplayer2.extractor.TrackOutput;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSourceUtil;
 import com.google.android.exoplayer2.upstream.DataSpec;
+import com.google.android.exoplayer2.util.Log;
 import java.io.IOException;
 
 /** A {@link BaseMediaChunk} for chunks consisting of a single raw sample. */
@@ -105,6 +106,7 @@ public final class SingleSampleMediaChunk extends BaseMediaChunk {
       int result = 0;
       while (result != C.RESULT_END_OF_INPUT) {
         nextLoadPosition += result;
+        Log.d("queueDebug","SingleSampleMediaChunk, load");
         result = trackOutput.sampleData(extractorInput, Integer.MAX_VALUE, true);
       }
       int sampleSize = (int) nextLoadPosition;

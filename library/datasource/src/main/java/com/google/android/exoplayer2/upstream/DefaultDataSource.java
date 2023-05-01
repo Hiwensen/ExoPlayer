@@ -265,6 +265,7 @@ public final class DefaultDataSource implements DataSource {
 
   @Override
   public int read(byte[] buffer, int offset, int length) throws IOException {
+//    Log.d("periodDebug", "DefaultDataSource, read");
     return Assertions.checkNotNull(dataSource).read(buffer, offset, length);
   }
 
