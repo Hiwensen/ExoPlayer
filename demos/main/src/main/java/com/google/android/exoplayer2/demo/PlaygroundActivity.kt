@@ -96,7 +96,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     }
 
     private fun playClearContent() {
-        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT_TUBI)
+        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(AD_TAG_URI).build())
                 .build()
         player.setMediaItem(mediaItem)

@@ -596,15 +596,15 @@ class ExoAdTagLoader(
     private fun insertAds(adGroupIndex: Int) {
         when (adPlayedTime) {
             0 -> {
-                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 3)
+                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 1)
                 adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_4))
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_5))
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_1))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_5))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_1))
             }
             1 -> {
-                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 2)
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_3))
-                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_4))
+                adPlaybackState = adPlaybackState.withAdCount(adGroupIndex, 1)
+                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 0, Uri.parse(AD_URL_5))
+//                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 1, Uri.parse(AD_URL_4))
 //                adPlaybackState = adPlaybackState.withAvailableAdUri(adGroupIndex, 2, Uri.parse(AD_URL_5))
             }
 //            else -> {
