@@ -49,6 +49,7 @@ class ExoAdTagLoader(
     private val TAG = ExoAdTagLoader::class.java.simpleName
 
     private val cuePointList = listOf<Float>(
+            0F,
             3 * 60 * C.MICROS_PER_SECOND.toFloat(),
             6 * 60 * C.MICROS_PER_SECOND.toFloat(),
             9 * 60 * C.MICROS_PER_SECOND.toFloat(),
@@ -573,7 +574,7 @@ class ExoAdTagLoader(
                     "insertAdsIfNecessary, loadingAdGroupIndex:$loadingAdGroupIndex, " +
                             "currentPosition:${currentPositionMilli / 1000},timeLeft:$timeLeft"
             )
-            if (timeLeft in 2.0..AD_PRE_FETCH_TIME_SECOND) {
+            if (timeLeft in 0.0..AD_PRE_FETCH_TIME_SECOND) {
 //                resetAdPlaybackStateIfPossible(loadingAdGroupIndex)
                 insertAds(loadingAdGroupIndex)
                 adInsertStateMap[loadingAdGroupIndex] = true
@@ -590,7 +591,7 @@ class ExoAdTagLoader(
     }
 
     private fun getFirstAdIndexAfterPosition(currentPositionMilli: Long): Int {
-        return cuePointList.indexOfFirst { it > currentPositionMilli * 1000 }
+        return cuePointList.indexOfFirst { it >= currentPositionMilli * 1000 }
     }
 
     private fun insertAds(adGroupIndex: Int) {
