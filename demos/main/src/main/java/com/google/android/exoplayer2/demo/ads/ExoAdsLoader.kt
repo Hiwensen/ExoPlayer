@@ -20,6 +20,7 @@ import java.util.*
 
 val ADS_LOADER_DEBUG = "adsLoaderDebug"
 val ACTIVE_DEBUG = "activeDebug"
+val SEAMLESS_DEBUG = "SeamlessDebug"
 
 class ExoAdsLoader(val context: Context) : AdsLoader, Player.Listener {
     private val TAG = ExoAdsLoader::class.java.simpleName

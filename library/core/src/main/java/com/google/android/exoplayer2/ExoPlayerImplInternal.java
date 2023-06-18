@@ -2159,6 +2159,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
               && newPlayingPeriodHolder.info.id.adGroupIndex == C.INDEX_UNSET
               && playbackInfo.periodId.nextAdGroupIndex
                   != newPlayingPeriodHolder.info.id.nextAdGroupIndex;
+      Log.d("seamlessDebug","ExoPlayerImplInternal, handlePositionDiscontinuity, auto transition");
       playbackInfo =
           handlePositionDiscontinuity(
               newPlayingPeriodHolder.info.id,

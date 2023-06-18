@@ -286,6 +286,7 @@ class ExoAdTagLoader(
                         "newPosition: adGroupIndex${newPosition.adGroupIndex},adIndexInGroup:${newPosition.adIndexInAdGroup} " +
                         "isPlayingAd:${player?.isPlayingAd}"
         )
+        Log.d("seamlessDebug", "ExoAdTagLoader, onPositionDiscontinuity, reason:$reason, 0 is auto transition")
 
         if (reason == Player.DISCONTINUITY_REASON_AUTO_TRANSITION) {
             val adGroupIndex = oldPosition.adGroupIndex
