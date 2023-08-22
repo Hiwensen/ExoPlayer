@@ -575,7 +575,7 @@ class ExoAdTagLoader(
                     "insertAdsIfNecessary, loadingAdGroupIndex:$loadingAdGroupIndex, " +
                             "currentPosition:${currentPositionMilli / 1000},timeLeft:$timeLeft"
             )
-            if (timeLeft in 0.0..AD_PRE_FETCH_TIME_SECOND) {
+            if (timeLeft > 0 && timeLeft < AD_PRE_FETCH_TIME_SECOND) {
 //                resetAdPlaybackStateIfPossible(loadingAdGroupIndex)
                 insertAds(loadingAdGroupIndex)
                 adInsertStateMap[loadingAdGroupIndex] = true

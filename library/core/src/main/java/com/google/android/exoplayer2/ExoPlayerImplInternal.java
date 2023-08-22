@@ -77,6 +77,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
         MediaSourceList.MediaSourceListInfoRefreshListener,
         PlaybackParametersListener,
         PlayerMessage.Sender {
+  private String ADS_LOADER_DEBUG_PLAYER = "adsLoaderDebug_player";
+
 
   private static final String TAG = "ExoPlayerImplInternal";
 
@@ -1820,6 +1822,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
   private void handleMediaSourceListInfoRefreshed(Timeline timeline, boolean isSourceRefresh)
       throws ExoPlaybackException {
+    Log.d(ADS_LOADER_DEBUG_PLAYER,"handleMediaSourceListInfoRefreshed");
     PositionUpdateForPlaylistChange positionUpdate =
         resolvePositionForPlaylistChange(
             timeline,
@@ -1884,6 +1887,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
                 && isSourceRefresh
                 && !oldTimeline.isEmpty()
                 && !oldTimeline.getPeriodByUid(oldPeriodUid, period).isPlaceholder;
+        int reason = timeline.getIndexOfPeriod(oldPeriodUid) == C.INDEX_UNSET
+            ? Player.DISCONTINUITY_REASON_REMOVE
+            : Player.DISCONTINUITY_REASON_SKIP;
+        Log.d(ADS_LOADER_DEBUG_PLAYER,
+            "1894, going to call handlePositionDiscontinuity, reportDiscontinuity:" + reportDiscontinuity
+                + ",reason:" + reason +
+                ", 0-transition, 1-seek, 2-seekAdjust, 3-skip, 4-remove");
         playbackInfo =
             handlePositionDiscontinuity(
                 newPeriodId,
