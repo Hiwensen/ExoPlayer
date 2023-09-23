@@ -33,7 +33,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     private var adsFetcher: AdsFetcher = AdsFetcher(lifecycleScope) { player.contentPosition }
     private val timeBarListener = TimeBarListener()
     private var targetCuePointMs = 0L
-    private var resumePosition = 0L
+    private val resumePositionMs = 420000L
     private val playerListener = PlayerListener()
     private val handler = Handler(Looper.getMainLooper())
     private val updateProgressRunnable = Runnable {
@@ -100,19 +100,16 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
 
         player = ExoPlayer.Builder(this).setMediaSourceFactory(mediaSourceFactory)
                 .build()
-        player.playWhenReady = true
         player.addListener(playerListener)
         playerView.player = player
 
         clientSideAdsLoader = DefaultExoAdsLoader()
         clientSideAdsLoader.setPlayer(player)
-        clientSideAdsLoader.setCuePoints(AD_POSITION_SECONDS, resumePosition)
-        handler.post(updateProgressRunnable)
+        clientSideAdsLoader.setCuePoints(AD_POSITION_SECONDS, resumePositionMs)
     }
 
     private fun initAdsFetcher() {
         adsFetcher.addFetchAdListener(adFetchAdListener)
-//        adsFetcher.fetchPreRoll(resumePosition)
     }
 
     private fun playDRM() {
@@ -127,9 +124,12 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(com.google.android.exoplayer2.demo.ads.AD_TAG_URI).build())
                 .build()
         player.setMediaItem(mediaItem)
+        player.seekTo(resumePositionMs)
         player.prepare()
         player.playWhenReady = true
-        player.seekTo(480000)
+        targetCuePointMs = resumePositionMs
+        adsFetcher.fetchPreRoll(resumePositionMs)
+        handler.post(updateProgressRunnable)
     }
 
     private fun playClearContent() {
@@ -139,6 +139,8 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
         player.setMediaItem(mediaItem)
         player.prepare()
         player.playWhenReady = true
+        adsFetcher.fetchPreRoll(resumePositionMs)
+        handler.post(updateProgressRunnable)
     }
 
     private fun onContentProgress(contentPositionMs: Long) {
@@ -173,8 +175,11 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
             when (reason) {
                 Player.DISCONTINUITY_REASON_SEEK -> {
                     adsFetcher.resetAdStatus()
-                    adsFetcher.onSeek(oldPosition.positionMs, newPosition.positionMs)
-                    updateTargetCuePoint(TimeHelper.milliToSecond(player.contentPosition))
+                    if (TimeHelper.milliToSecond(newPosition.positionMs) != TimeHelper.milliToSecond(resumePositionMs)) {
+                        // Avoid trigger duplicate onSeek callback caused by resume position not 0
+                        adsFetcher.onSeek(oldPosition.positionMs, newPosition.positionMs)
+                        updateTargetCuePoint(TimeHelper.milliToSecond(player.contentPosition))
+                    }
                 }
 
                 Player.DISCONTINUITY_REASON_AUTO_TRANSITION -> {

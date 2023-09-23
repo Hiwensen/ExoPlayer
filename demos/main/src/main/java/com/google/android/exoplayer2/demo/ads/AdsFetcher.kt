@@ -51,7 +51,7 @@ class AdsFetcher(val lifecycleScope: LifecycleCoroutineScope, getContentPosition
 
     fun fetchPreRoll(startPositionMs: Long) {
         val adGroupIndex = cuePointListMs.indexOfFirst { it >= startPositionMs }
-        fetchAd(adGroupIndex, AdRequestType.FFWD)
+        fetchAd(adGroupIndex, AdRequestType.REGULAR)
     }
 
     fun onSeek(oldPositionMilli: Long, newPositionMilli: Long) {
