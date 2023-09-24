@@ -7,11 +7,11 @@ val URI_CLEAR_CONTENT_TUBI =
         "https://manifest.production-public.tubi.io/bf129953-8795-468d-9e27-a1144d155678/le6hzujacs.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiI1ZTAzZjcwYi1kOWM4LTQ5MDEtOGNlMi1lNmRiMzA2M2RlNTEiLCJleHAiOjE2OTQ2Nzc4MDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.yFkjdUyBqaIqxManlzP0HJ9UT_Zx4zcerJEkrFSxx0A&manifest=true"
 val URI_WIDEVINE = "https://storage.googleapis.com/wvmedia/cenc/h264/tears/tears.mpd"
 val URI_WIDEVINE_TUBI =
-        "https://manifest.production-public.tubi.io/3ab3810b-e3e5-4c5c-8b05-5418a55921f7/0h25zo9k6f.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiI2MzhlNzhiNy1kNmNmLTRmNTQtYTg2Yi1kZWM1NTNmYmY4ODAiLCJleHAiOjE2OTU2ODkxMDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.ntjV_UWfqqu-VdyDcK_gpSpBzP9F50L_ULDKokal8fE&manifest=true"
+        "https://manifest.production-public.tubi.io/3ab3810b-e3e5-4c5c-8b05-5418a55921f7/0h25zo9k6f.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiJlNzk4ZjBhMS1iZjlhLTQ1YzYtYjcxZS03MWIxMDI0MWIyNTkiLCJleHAiOjE2OTU3OTc3MDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.78QqmSn3bBVZmxkvZuSsD055sgSMSgqjnjhO22cKWuY&manifest=true"
 
 val URI_DRM_LICENSE = "https://proxy.uat.widevine.com/proxy?provider=widevine_test"
 val URI_DRM_LICENSE_TUBI =
-        "https://license.adrise.tv/challenge?platform=android&type=widevine_psshv0&external_id=A73E5D305357B07E675DEC452FF9F49E&drm_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbmFsb2dfb3V0IjoiZW5hYmxlZCIsImV4cCI6MTY5NTY4OTEwMCwiaGRjcCI6ImRpc2FibGVkIiwicHJfc2VjdXJpdHlfbGV2ZWwiOjIwMDAsInd2X3NlY3VyaXR5X2xldmVsIjoxfQ.jQSHNnOko9_XFZFCgAXYEMDSVB5En3sVkkeC9PZAF_4"
+        "https://license.adrise.tv/challenge?platform=android&type=widevine_psshv0&external_id=AC59F98EE938FE3D35CF29D5660CBD43&drm_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbmFsb2dfb3V0IjoiZW5hYmxlZCIsImV4cCI6MTY5NTc5NzcwMCwiaGRjcCI6ImRpc2FibGVkIiwicHJfc2VjdXJpdHlfbGV2ZWwiOjIwMDAsInd2X3NlY3VyaXR5X2xldmVsIjoxfQ.T5fBkmsW6TcGcc9JlmjBIrf0VVoXrWGtHyl66vFxeX8"
 
 val AD_POSITION_SECONDS = listOf(0L, 495L, 723L, 998L, 1267L, 1432L, 1615L, 1940L, 2259L, 2769L, 2971L, 3373L, 3604L, 3809L, 4124L, 4505L, 4747L, 4938L, 5211L, 5711L, 6042L, 6576L, 6877L)
 val AD_PRE_FETCH_TIME_SECOND = 5

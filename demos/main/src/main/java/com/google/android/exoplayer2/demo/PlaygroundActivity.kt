@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.demo.ads.ADS_LOADER_DEBUG
 import com.google.android.exoplayer2.demo.ads.AdRequestType
 import com.google.android.exoplayer2.demo.ads.AdsFetcher
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoader
+import com.google.android.exoplayer2.demo.ads.ExoAdsLoaderV2
 import com.google.android.exoplayer2.demo.ads.FetchAdListener
 
 class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
@@ -103,7 +104,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
         player.addListener(playerListener)
         playerView.player = player
 
-        clientSideAdsLoader = DefaultExoAdsLoader()
+        clientSideAdsLoader = ExoAdsLoaderV2()
         clientSideAdsLoader.setPlayer(player)
         clientSideAdsLoader.setCuePoints(AD_POSITION_SECONDS, resumePositionMs)
     }

@@ -1,6 +1,5 @@
 package com.google.android.exoplayer2.demo.ads
 
-import android.net.Uri
 import android.os.Looper
 import android.util.Log
 import com.google.android.exoplayer2.C
@@ -21,11 +20,8 @@ import com.google.android.exoplayer2.util.Util
 import com.tubitv.features.seamlessplay.SingleCuePointAdTagLoader
 import java.io.IOException
 import java.util.Collections
-
-val AD_TAG_URI = Uri.parse("")
-
-class DefaultExoAdsLoader : ExoAdsLoader, Listener {
-    private val TAG = DefaultExoAdsLoader::class.java.simpleName
+class ExoAdsLoaderV2 : ExoAdsLoader, Listener {
+    private val TAG = ExoAdsLoaderV2::class.java.simpleName
     private var nextPlayer: Player? = null
     private var player: Player? = null
     private var wasSetPlayerCalled = false
@@ -50,10 +46,10 @@ class DefaultExoAdsLoader : ExoAdsLoader, Listener {
     }
 
     override fun onReceiveAds(
-            vastAdUriList: List<String>,
-            vastAdDurationList: List<Long>,
-            adRequestType: AdRequestType,
-            targetCuePointMicro: Long
+        vastAdUriList: List<String>,
+        vastAdDurationList: List<Long>,
+        adRequestType: AdRequestType,
+        targetCuePointMicro: Long
     ) {
         currentAdTagLoader?.onReceiveAds(vastAdUriList, vastAdDurationList, adRequestType, targetCuePointMicro)
     }
@@ -187,7 +183,6 @@ class DefaultExoAdsLoader : ExoAdsLoader, Listener {
             "handlePrepareError, adGroupIndex:$adGroupIndex," +
                 "adIndexInAdGroup:$adIndexInAdGroup, exception:$exception"
         )
-
         Assertions.checkNotNull<AdTagLoader>(adTagLoaderByAdsMediaSource[adsMediaSource])
             .handlePrepareError(adGroupIndex, adIndexInAdGroup, exception)
     }
@@ -196,7 +191,6 @@ class DefaultExoAdsLoader : ExoAdsLoader, Listener {
     private fun requestAds(adTagDataSpec: DataSpec, adsId: Any) {
         if (!adTagLoaderByAdsId.containsKey(adsId)) {
             val adTagLoader = if (useMultipleCuePoint) {
-//                MultipleCuePointAdTagLoader(adTagDataSpec, adsId)
                 MultipleAdTagLoaderV2(adTagDataSpec, adsId)
             } else {
                 SingleCuePointAdTagLoader(adTagDataSpec, adsId)
