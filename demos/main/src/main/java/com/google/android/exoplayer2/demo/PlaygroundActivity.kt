@@ -1,5 +1,6 @@
 package com.google.android.exoplayer2.demo
 
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +13,6 @@ import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.demo.ads.DefaultExoAdsLoader
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
 import com.google.android.exoplayer2.source.ads.AdsLoader
 import com.google.android.exoplayer2.ui.DefaultTimeBar
@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.demo.ads.AdsFetcher
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoader
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoaderV2
 import com.google.android.exoplayer2.demo.ads.FetchAdListener
+import com.google.android.exoplayer2.util.MimeTypes
 
 class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     private val TAG = PlaygroundActivity::class.java.simpleName
@@ -34,7 +35,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     private var adsFetcher: AdsFetcher = AdsFetcher(lifecycleScope) { player.contentPosition }
     private val timeBarListener = TimeBarListener()
     private var targetCuePointMs = 0L
-    private val resumePositionMs = 420000L
+    private val resumePositionMs = 0L
     private val playerListener = PlayerListener()
     private val handler = Handler(Looper.getMainLooper())
     private val updateProgressRunnable = Runnable {
@@ -122,7 +123,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
                 .build()
         val mediaItem = MediaItem.Builder().setUri(URI_WIDEVINE_TUBI)
                 .setDrmConfiguration(drmConfiguration)
-                .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(com.google.android.exoplayer2.demo.ads.AD_TAG_URI).build())
+                .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(AD_TAG_URI).build())
                 .build()
         player.setMediaItem(mediaItem)
         player.seekTo(resumePositionMs)
@@ -134,8 +135,15 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     }
 
     private fun playClearContent() {
+        val subtitleConfiguration = MediaItem.SubtitleConfiguration.Builder(Uri.parse(SUBTITLE_URL))
+                .setMimeType(MimeTypes.APPLICATION_SUBRIP)
+                .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
+                .setRoleFlags(C.ROLE_FLAG_SUBTITLE)
+                .setLanguage(SUBTITLE_LANGUAGE)
+                .build()
         val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT_TUBI)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(com.google.android.exoplayer2.demo.ads.AD_TAG_URI).build())
+                .setSubtitleConfigurations(listOf(subtitleConfiguration))
                 .build()
         player.setMediaItem(mediaItem)
         player.prepare()
