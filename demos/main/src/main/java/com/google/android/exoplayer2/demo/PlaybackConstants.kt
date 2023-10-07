@@ -4,7 +4,7 @@ import android.net.Uri
 
 val URI_CLEAR_CONTENT = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8"
 val URI_CLEAR_CONTENT_TUBI =
-        "https://manifest.production-public.tubi.io/134199c4-5049-4b01-a267-b387ffea8964/kosgs0mp41.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiJiZTQwNmEwMi1jYThkLTQ5Y2EtODk5NS0xZmQ0NjA3MzkzYzIiLCJleHAiOjE2OTY0MTA2MDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.f9cJ6GRkKI4NHF3RMC_iz3UuyHyf5QoWCSzZXVZYQdk&manifest=true"
+        "https://manifest.production-public.tubi.io/134199c4-5049-4b01-a267-b387ffea8964/kosgs0mp41.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiJiZTQwNmEwMi1jYThkLTQ5Y2EtODk5NS0xZmQ0NjA3MzkzYzIiLCJleHAiOjE2OTY4NDA4MDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.bW1G-AwRkHUXqGqzo5VIwYrcv9U62rx-ks2UVVEyLBA&manifest=true"
 val URI_WIDEVINE = "https://storage.googleapis.com/wvmedia/cenc/h264/tears/tears.mpd"
 val URI_WIDEVINE_TUBI =
         "https://manifest.production-public.tubi.io/3ab3810b-e3e5-4c5c-8b05-5418a55921f7/0h25zo9k6f.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9ha2FtYWkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiJlNzk4ZjBhMS1iZjlhLTQ1YzYtYjcxZS03MWIxMDI0MWIyNTkiLCJleHAiOjE2OTU3OTc3MDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.78QqmSn3bBVZmxkvZuSsD055sgSMSgqjnjhO22cKWuY&manifest=true"
@@ -17,7 +17,7 @@ val AD_POSITION_SECONDS = listOf(0L, 30L, 60L, 90L, 120L, 1432L, 1615L, 1940L, 2
 val AD_PRE_FETCH_TIME_SECOND = 5
 
 val SUBTITLE_URL = "http://s.adrise.tv/31af500b-9d1e-45ce-9588-e1b85cfa7c0a.srt"
-val SUBTITLE_LANGUAGE = "English"
+val SUBTITLE_LANGUAGE = "en"
 
 val AD_URL_0 = "http://paella.adrise.tv/005296/4157521/v1105000139-854x480-HD-1132k.mp4"
 val AD_URL_1 = "http://paella.adrise.tv/012243/4116546/v1025163650-854x480-HD-999k.mp4"
