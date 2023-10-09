@@ -34,7 +34,7 @@
       android:configChanges="keyboardHidden"
       android:exported="true"
       android:label="@string/application_name"
-      android:name=".SampleChooserActivity"
+      android:name=".PlaygroundActivity"
       android:theme="@style/PlaygroundTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

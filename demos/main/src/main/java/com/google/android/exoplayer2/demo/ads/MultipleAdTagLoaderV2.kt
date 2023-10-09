@@ -158,7 +158,7 @@ class MultipleAdTagLoaderV2(private val adTagDataSpec: DataSpec, private val ads
                         Log.d(
                             TAG,
                             "onAdResponse, ad filled, adGroupIndex:$adGroupIndex, adIndexInGroup:$adIndex," +
-                                "adDurationMicro:${vastAdDurationList[adIndex]}," +
+//                                "adDurationMicro:${vastAdDurationList[adIndex]}," +
                                 "adUri:${vastAdUriList[adIndex]}"
                         )
                         adPlaybackState.withAvailableAdUri(adGroupIndex, adIndex, vastAdUriList[adIndex].toUri())

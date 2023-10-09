@@ -192,7 +192,6 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
                 }
 
                 Player.DISCONTINUITY_REASON_AUTO_TRANSITION -> {
-                    adsFetcher.resetAdStatus()
                     if (!player.isPlayingAd) {
                         // Switch from ad to video content
                         updateTargetCuePoint(TimeHelper.milliToSecond(targetCuePointMs))

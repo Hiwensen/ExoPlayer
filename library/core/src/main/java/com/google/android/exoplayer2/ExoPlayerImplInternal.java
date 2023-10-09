@@ -2139,6 +2139,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       if (!renderer.isCurrentStreamFinal()) {
         // The renderer stream is not final, so we can replace the sample streams immediately.
         Format[] formats = getFormats(newTrackSelectorResult.selections[i]);
+        Log.d("seamlessDebug","ExoImpl, replaceStream");
         renderer.replaceStream(
             formats,
             readingPeriodHolder.sampleStreams[i],

@@ -6,10 +6,9 @@ import android.os.SystemClock
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.google.android.exoplayer2.demo.AD_POSITION_SECONDS
 import com.google.android.exoplayer2.demo.AD_PRE_FETCH_TIME_SECOND
-import com.google.android.exoplayer2.demo.AD_URL_0
-import com.google.android.exoplayer2.demo.AD_URL_1
 import com.google.android.exoplayer2.demo.AD_URL_2
 import com.google.android.exoplayer2.demo.AD_URL_3
+import com.google.android.exoplayer2.demo.AD_URL_4
 import com.google.android.exoplayer2.demo.TimeHelper
 import com.google.android.exoplayer2.util.Log
 import kotlinx.coroutines.Dispatchers
@@ -109,20 +108,21 @@ class AdsFetcher(val lifecycleScope: LifecycleCoroutineScope, getContentPosition
                     0 -> {
                         fetchAdListenerList.forEach {
                             it.onAdResponse(emptyList(), adRequestType)
+//                            it.onAdResponse(listOf(AD_URL_0, AD_URL_1), adRequestType)
                         }
                     }
 
                     1 -> {
                         fetchAdListenerList.forEach {
-                            it.onAdResponse(emptyList(), adRequestType)
-//                            it.onAdResponse(listOf(AD_URL_2), adRequestType)
+//                            it.onAdResponse(emptyList(), adRequestType)
+                            it.onAdResponse(listOf(AD_URL_2), adRequestType)
                         }
                     }
 
                     2 -> {
                         fetchAdListenerList.forEach {
-                            it.onAdResponse(emptyList(), adRequestType)
-//                            it.onAdResponse(listOf(AD_URL_0, AD_URL_1), adRequestType)
+//                            it.onAdResponse(emptyList(), adRequestType)
+                            it.onAdResponse(listOf(AD_URL_3, AD_URL_4), adRequestType)
                         }
                     }
 
