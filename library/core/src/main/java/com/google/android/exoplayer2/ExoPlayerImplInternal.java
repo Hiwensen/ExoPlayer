@@ -2108,12 +2108,25 @@ import java.util.concurrent.atomic.AtomicBoolean;
   }
 
   private void maybeUpdateReadingRenderers() throws ExoPlaybackException {
+    Log.d("seamlessDebug","ExoImpl, maybeUpdateReadingRenderers");
+
     @Nullable MediaPeriodHolder readingPeriod = queue.getReadingPeriod();
     if (readingPeriod == null
         || queue.getPlayingPeriod() == readingPeriod
         || readingPeriod.allRenderersInCorrectState) {
       // Not reading ahead or all renderers updated.
+      boolean readingNull = readingPeriod == null;
+      boolean playingIsReading = queue.getPlayingPeriod() == readingPeriod;
+      boolean inCorrectState = readingPeriod.allRenderersInCorrectState;
+      Log.d("seamlessDebug","ExoImpl, maybeUpdateReadingRenderers return, readingNull:"+ readingNull+
+          ",playingIsReading:" + playingIsReading +",inCorrectState:" + inCorrectState);
       return;
+    }else {
+      boolean readingNull = readingPeriod == null;
+      boolean playingIsReading = queue.getPlayingPeriod() == readingPeriod;
+      boolean inCorrectState = readingPeriod.allRenderersInCorrectState;
+      Log.d("seamlessDebug","ExoImpl, maybeUpdateReadingRenderers going to call replaceStream, readingNull:"+ readingNull+
+          ",playingIsReading:" + playingIsReading +",inCorrectState:" + inCorrectState);
     }
     if (replaceStreamsOrDisableRendererForTransition()) {
       enableRenderers();
@@ -2121,12 +2134,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
   }
 
   private boolean replaceStreamsOrDisableRendererForTransition() throws ExoPlaybackException {
+    Log.d("seamlessDebug","ExoImpl, replaceStreamsOrDisableRendererForTransition");
     MediaPeriodHolder readingPeriodHolder = queue.getReadingPeriod();
     TrackSelectorResult newTrackSelectorResult = readingPeriodHolder.getTrackSelectorResult();
     boolean needsToWaitForRendererToEnd = false;
     for (int i = 0; i < renderers.length; i++) {
       Renderer renderer = renderers[i];
+      renderer.getName();
+      renderer.getTrackType();
+//      public static final int TRACK_TYPE_DEFAULT = 0;
+//      public static final int TRACK_TYPE_AUDIO = 1;
+//      public static final int TRACK_TYPE_VIDEO = 2;
+//      public static final int TRACK_TYPE_TEXT = 3;
+      Log.d("seamlessDebug","ExoImpl, RSODR, renderName:" + renderer.getName()+""
+          + ",renderType:" + renderer.getTrackType());
+
       if (!isRendererEnabled(renderer)) {
+        Log.d("seamlessDebug","ExoImpl, RSODR, render not enabled, continue");
         continue;
       }
       boolean rendererIsReadingOldStream =
@@ -2134,22 +2158,25 @@ import java.util.concurrent.atomic.AtomicBoolean;
       boolean rendererShouldBeEnabled = newTrackSelectorResult.isRendererEnabled(i);
       if (rendererShouldBeEnabled && !rendererIsReadingOldStream) {
         // All done.
+        Log.d("seamlessDebug","ExoImpl, RSODR, all done, continue");
         continue;
       }
       if (!renderer.isCurrentStreamFinal()) {
         // The renderer stream is not final, so we can replace the sample streams immediately.
         Format[] formats = getFormats(newTrackSelectorResult.selections[i]);
-        Log.d("seamlessDebug","ExoImpl, replaceStream");
+        Log.d("seamlessDebug","ExoImpl, RSODR, replaceStream");
         renderer.replaceStream(
             formats,
             readingPeriodHolder.sampleStreams[i],
             readingPeriodHolder.getStartPositionRendererTime(),
             readingPeriodHolder.getRendererOffset());
       } else if (renderer.isEnded()) {
+        Log.d("seamlessDebug","ExoImpl, RSODR, disableRender");
         // The renderer has finished playback, so we can disable it now.
         disableRenderer(renderer);
       } else {
         // We need to wait until rendering finished before disabling the renderer.
+        Log.d("seamlessDebug","ExoImpl, RSODR, needsToWaitForRendererToEnd");
         needsToWaitForRendererToEnd = true;
       }
     }

@@ -114,15 +114,15 @@ class AdsFetcher(val lifecycleScope: LifecycleCoroutineScope, getContentPosition
 
                     1 -> {
                         fetchAdListenerList.forEach {
-//                            it.onAdResponse(emptyList(), adRequestType)
-                            it.onAdResponse(listOf(AD_URL_2), adRequestType)
+                            it.onAdResponse(emptyList(), adRequestType)
+//                            it.onAdResponse(listOf(AD_URL_2), adRequestType)
                         }
                     }
 
                     2 -> {
                         fetchAdListenerList.forEach {
-//                            it.onAdResponse(emptyList(), adRequestType)
-                            it.onAdResponse(listOf(AD_URL_3, AD_URL_4), adRequestType)
+                            it.onAdResponse(emptyList(), adRequestType)
+//                            it.onAdResponse(listOf(AD_URL_3, AD_URL_4), adRequestType)
                         }
                     }
 
