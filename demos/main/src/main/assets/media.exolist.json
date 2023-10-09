@@ -274,6 +274,14 @@
     "name": "IMA sample ad tags",
     "samples": [
       {
+        "name": "playback stuck with srt subtitle",
+        "uri": "https://manifest.production-public.tubi.io/134199c4-5049-4b01-a267-b387ffea8964/kosgs0mp41.m3u8?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZG5fcHJlZml4IjoiaHR0cHM6Ly9mYXN0bHkyLnR1YmkudmlkZW8iLCJjb3VudHJ5IjoiVVMiLCJkZXZpY2VfaWQiOiI0YTBiNjE0ZC01NDVmLTQxMDAtYmFjMS1hODMwYjY4YTNlNzIiLCJleHAiOjE2OTcwNzYzMDAsInBsYXRmb3JtIjoiQU5EUk9JRCIsInVzZXJfaWQiOjIzMjgyMzc2fQ.wi8nr8kxVI6ZpS8aS9XmZ85IfhOjcUFXd4bLochcs9c&manifest=true",
+        "ad_tag_uri": "https://run.mocky.io/v3/d3c23db8-aaf8-43a4-9690-3398a0f0f10f",
+        "subtitle_uri": "http://s.adrise.tv/31af500b-9d1e-45ce-9588-e1b85cfa7c0a.srt",
+        "subtitle_mime_type": "application/x-subrip",
+        "subtitle_language": "en"
+      },
+      {
         "name": "Single inline linear",
         "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
         "ad_tag_uri": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
