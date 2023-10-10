@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
@@ -25,7 +26,11 @@ import com.google.android.exoplayer2.demo.ads.AdsFetcher
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoader
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoaderV2
 import com.google.android.exoplayer2.demo.ads.FetchAdListener
+import com.google.android.exoplayer2.source.MergingMediaSource
+import com.google.android.exoplayer2.source.SingleSampleMediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.MimeTypes
+import com.google.common.collect.ImmutableList
 
 class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     private val TAG = PlaygroundActivity::class.java.simpleName
@@ -135,17 +140,29 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     }
 
     private fun playClearContent() {
-        val subtitleConfiguration = MediaItem.SubtitleConfiguration.Builder(Uri.parse(SUBTITLE_URL))
-                .setMimeType(MimeTypes.APPLICATION_SUBRIP)
-                .setSelectionFlags(C.SELECTION_FLAG_DEFAULT)
-                .setRoleFlags(C.ROLE_FLAG_SUBTITLE)
-                .setLanguage(SUBTITLE_LANGUAGE)
-                .build()
+        val subtitle = MediaItem.SubtitleConfiguration.Builder(Uri.parse(SUBTITLE_URL))
+            .setMimeType(MimeTypes.APPLICATION_SUBRIP) // The correct MIME type (required).
+            .setLanguage(SUBTITLE_LANGUAGE) // The subtitle language (optional).
+            .setSelectionFlags(C.SELECTION_FLAG_DEFAULT) // Selection flags for the track (optional).
+            .setRoleFlags(C.ROLE_FLAG_SUBTITLE)
+            .build()
+
         val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT_TUBI)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(com.google.android.exoplayer2.demo.ads.AD_TAG_URI).build())
-                .setSubtitleConfigurations(listOf(subtitleConfiguration))
+                .setSubtitleConfigurations(ImmutableList.of(subtitle))
                 .build()
+
+        val defaultMediaSourceFactory = DefaultMediaSourceFactory(this)
+        val contentMediaSource = defaultMediaSourceFactory.createMediaSource(mediaItem)
+
+        // Plays the video with the side loaded subtitle.
+        val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+        val subtitleSource = SingleSampleMediaSource.Factory(httpDataSourceFactory)
+            .createMediaSource(subtitle, -1)
+        val mergingMediaSource = MergingMediaSource(contentMediaSource, subtitleSource)
+
         player.setMediaItem(mediaItem)
+//        player.setMediaSource(mergingMediaSource)
         player.prepare()
         player.playWhenReady = true
         adsFetcher.fetchPreRoll(resumePositionMs)
