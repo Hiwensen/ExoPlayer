@@ -83,7 +83,15 @@ class MultipleAdTagLoaderV2(private val adTagDataSpec: DataSpec, private val ads
                     cuePointListMicroOriginal.contains(initCuePointMicro) -> {
                         // resume position is the original cue point
                         Log.d(TAG, "addAdsLoadEventListener, create AdPlaybackState")
-                        adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicro))
+                        adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicro)).also {
+                            for (i in 0 until adPlaybackState.adGroupCount) {
+//                                adPlaybackState = adPlaybackState.withIsServerSideInserted(i, true)
+                                adPlaybackState = adPlaybackState
+                                        .withAdCount (i, 1)
+                                        .withSkippedAdGroup (i)
+                            }
+                        }
+
                         cuePointListMicro.indexOf(initCuePointMicro).takeIf { it != -1 }?.let { cuePointIndex ->
                             for (i in 0 until cuePointIndex) {
                                 Log.d(TAG, "addAdsLoadEventListener, skip adGroup:$i")
@@ -109,7 +117,17 @@ class MultipleAdTagLoaderV2(private val adTagDataSpec: DataSpec, private val ads
                             updatedIndex = it
                             cuePointListMicro[it] = initCuePointMicro
                         }
-                        adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicro))
+                        adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicro)).also {
+                            for (i in 0 until adPlaybackState.adGroupCount) {
+//                                adPlaybackState = adPlaybackState.withIsServerSideInserted(i, true)
+                                adPlaybackState = adPlaybackState
+                                        .withAdCount (i, 1)
+                                        .withSkippedAdGroup (i)
+                            }
+                        }
+                        for (i in 0 until adPlaybackState.adGroupCount) {
+                            adPlaybackState.withIsServerSideInserted(i, true)
+                        }
                         for (i in 0 until updatedIndex) {
                             Log.d(TAG, "addAdsLoadEventListener, skip adGroup:$i")
                             adPlaybackState = adPlaybackState.withSkippedAdGroup(i)
@@ -120,7 +138,14 @@ class MultipleAdTagLoaderV2(private val adTagDataSpec: DataSpec, private val ads
 
             else -> {
                 // Play from beginning
-                adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicroOriginal))
+                adPlaybackState = AdPlaybackState(adsId, *getAdGroupTimesUsForCuePoints(cuePointListMicroOriginal)).also {
+                    for (i in 0 until adPlaybackState.adGroupCount) {
+//                        adPlaybackState = adPlaybackState.withIsServerSideInserted(i, true)
+                        adPlaybackState = adPlaybackState
+                                .withAdCount (i, 1)
+                                .withSkippedAdGroup (i)
+                    }
+                }
             }
         }
     }
