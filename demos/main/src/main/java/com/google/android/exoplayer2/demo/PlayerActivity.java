@@ -318,8 +318,10 @@ public class PlayerActivity extends AppCompatActivity
         new ImaServerSideAdInsertionMediaSource.Factory(
             serverSideAdsLoader,
             new DefaultMediaSourceFactory(/* context= */ this)
+                .experimentalUseProgressiveMediaSourceForSubtitles(true)
                 .setDataSourceFactory(dataSourceFactory));
     return new DefaultMediaSourceFactory(/* context= */ this)
+        .experimentalUseProgressiveMediaSourceForSubtitles(true)
         .setDataSourceFactory(dataSourceFactory)
         .setDrmSessionManagerProvider(drmSessionManagerProvider)
         .setLocalAdInsertionComponents(
