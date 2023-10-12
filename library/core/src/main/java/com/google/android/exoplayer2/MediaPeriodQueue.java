@@ -31,6 +31,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectorResult;
 import com.google.android.exoplayer2.upstream.Allocator;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.HandlerWrapper;
+import com.google.android.exoplayer2.util.Log;
 import com.google.common.collect.ImmutableList;
 
 /**
@@ -81,6 +82,7 @@ import com.google.common.collect.ImmutableList;
   private int length;
   @Nullable private Object oldFrontPeriodUid;
   private long oldFrontPeriodWindowSequenceNumber;
+  private String TAG = "seamlessDebug";
 
   /**
    * Creates a new media period queue.
@@ -199,6 +201,7 @@ import com.google.common.collect.ImmutableList;
     if (loading != null) {
       loading.setNext(newPeriodHolder);
     } else {
+      Log.d(TAG, "enqueueNextMediaPeriodHolder, playing and reading change");
       playing = newPeriodHolder;
       reading = newPeriodHolder;
     }
@@ -240,6 +243,7 @@ import com.google.common.collect.ImmutableList;
    */
   public MediaPeriodHolder advanceReadingPeriod() {
     Assertions.checkState(reading != null && reading.getNext() != null);
+    Log.d(TAG, "advanceReadingPeriod, change reading");
     reading = reading.getNext();
     notifyQueueUpdate();
     return reading;
@@ -257,6 +261,7 @@ import com.google.common.collect.ImmutableList;
       return null;
     }
     if (playing == reading) {
+      Log.d(TAG, "advancePlayingPeriod, change reading");
       reading = playing.getNext();
     }
     playing.release();
@@ -266,6 +271,7 @@ import com.google.common.collect.ImmutableList;
       oldFrontPeriodUid = playing.uid;
       oldFrontPeriodWindowSequenceNumber = playing.info.id.windowSequenceNumber;
     }
+    Log.d(TAG, "advancePlayingPeriod, change playing");
     playing = playing.getNext();
     notifyQueueUpdate();
     return playing;
@@ -289,6 +295,7 @@ import com.google.common.collect.ImmutableList;
     while (mediaPeriodHolder.getNext() != null) {
       mediaPeriodHolder = mediaPeriodHolder.getNext();
       if (mediaPeriodHolder == reading) {
+        Log.d(TAG,"removeAfter, change reading");
         reading = playing;
         removedReading = true;
       }
