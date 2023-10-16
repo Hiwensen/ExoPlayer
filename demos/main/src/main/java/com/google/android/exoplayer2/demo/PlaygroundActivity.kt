@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
@@ -103,6 +102,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
     private fun initializePlayer() {
         val mediaSourceFactory =
                 DefaultMediaSourceFactory(applicationContext)
+                        .experimentalUseProgressiveMediaSourceForSubtitles(true)
                         .setLocalAdInsertionComponents(this, playerView)
 
         player = ExoPlayer.Builder(this).setMediaSourceFactory(mediaSourceFactory)
@@ -152,14 +152,15 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
                 .setSubtitleConfigurations(ImmutableList.of(subtitle))
                 .build()
 
-        val defaultMediaSourceFactory = DefaultMediaSourceFactory(this)
-        val contentMediaSource = defaultMediaSourceFactory.createMediaSource(mediaItem)
+//        val defaultMediaSourceFactory = DefaultMediaSourceFactory(this)
+//                .experimentalUseProgressiveMediaSourceForSubtitles(true)
+//        val contentMediaSource = defaultMediaSourceFactory.createMediaSource(mediaItem)
 
         // Plays the video with the side loaded subtitle.
-        val httpDataSourceFactory = DefaultHttpDataSource.Factory()
-        val subtitleSource = SingleSampleMediaSource.Factory(httpDataSourceFactory)
-            .createMediaSource(subtitle, -1)
-        val mergingMediaSource = MergingMediaSource(contentMediaSource, subtitleSource)
+//        val httpDataSourceFactory = DefaultHttpDataSource.Factory()
+//        val subtitleSource = SingleSampleMediaSource.Factory(httpDataSourceFactory)
+//            .createMediaSource(subtitle, -1)
+//        val mergingMediaSource = MergingMediaSource(contentMediaSource, subtitleSource)
 
         player.setMediaItem(mediaItem)
 //        player.setMediaSource(mergingMediaSource)
