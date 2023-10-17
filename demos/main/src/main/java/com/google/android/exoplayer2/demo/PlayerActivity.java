@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
@@ -476,10 +477,16 @@ public class PlayerActivity extends AppCompatActivity
 
     @Override
     public void onPlaybackStateChanged(@Player.State int playbackState) {
+      Log.d("playerDebug", "onPlaybackStateChanged:" + playbackState);
       if (playbackState == Player.STATE_ENDED) {
         showControls();
       }
       updateButtonVisibility();
+    }
+
+    @Override
+    public void onPositionDiscontinuity(Player.PositionInfo oldPosition, Player.PositionInfo newPosition, int reason) {
+      Log.d("playerDebug", "onPositionDiscontinuity:" + reason);
     }
 
     @Override

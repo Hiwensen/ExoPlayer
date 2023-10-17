@@ -274,6 +274,16 @@
     "name": "IMA sample ad tags",
     "samples": [
       {
+        "name": "VMAP three empty midrolls, 10s",
+        "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
+        "ad_tag_uri": "https://run.mocky.io/v3/d3c23db8-aaf8-43a4-9690-3398a0f0f10f"
+      },
+      {
+        "name": "VMAP three empty midrolls, 30s",
+        "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
+        "ad_tag_uri": "https://run.mocky.io/v3/62aaab33-d91c-4fde-b312-0cc6376333c2"
+      },
+      {
         "name": "Single inline linear",
         "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
         "ad_tag_uri": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator="
