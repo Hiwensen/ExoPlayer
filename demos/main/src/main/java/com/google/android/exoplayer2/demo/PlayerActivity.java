@@ -53,6 +53,7 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.DebugTextViewHelper;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -468,10 +469,16 @@ public class PlayerActivity extends AppCompatActivity
 
     @Override
     public void onPlaybackStateChanged(@Player.State int playbackState) {
+      Log.d("playerDebug","onPlaybackStateChanged, playbackState:" + playbackState);
       if (playbackState == Player.STATE_ENDED) {
         showControls();
       }
       updateButtonVisibility();
+    }
+
+    @Override
+    public void onPositionDiscontinuity(Player.PositionInfo oldPosition, Player.PositionInfo newPosition, int reason) {
+      Log.d("playerDebug","onPositionDiscontinuity, reason:" + reason);
     }
 
     @Override
