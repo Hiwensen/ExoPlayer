@@ -2080,9 +2080,14 @@ import java.util.concurrent.TimeoutException;
                   newPlaybackInfo.playWhenReady, newPlaybackInfo.playbackState));
     }
     if (playbackStateChanged) {
+      Log.d("bufferDebug","ExoImpl, queue event playback state changed");
       listeners.queueEvent(
           Player.EVENT_PLAYBACK_STATE_CHANGED,
-          listener -> listener.onPlaybackStateChanged(newPlaybackInfo.playbackState));
+          listener -> {
+            Log.d("bufferDebug",
+                "ExoImpl, state changed event invoke:" + newPlaybackInfo.playbackState);
+            listener.onPlaybackStateChanged(newPlaybackInfo.playbackState);
+          });
     }
     if (playWhenReadyChanged) {
       listeners.queueEvent(

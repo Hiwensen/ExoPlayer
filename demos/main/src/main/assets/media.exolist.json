@@ -274,12 +274,12 @@
     "name": "IMA sample ad tags",
     "samples": [
       {
-        "name": "VMAP three empty midrolls, 10s",
+        "name": "VMAP three empty midrolls, player buffer at ad points, internal 10s",
         "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
         "ad_tag_uri": "https://run.mocky.io/v3/d3c23db8-aaf8-43a4-9690-3398a0f0f10f"
       },
       {
-        "name": "VMAP three empty midrolls, 30s",
+        "name": "VMAP three empty midrolls, player buffer at ad points, internal 30s",
         "uri": "https://storage.googleapis.com/exoplayer-test-media-1/mkv/android-screens-lavf-56.36.100-aac-avc-main-1280x720.mkv",
         "ad_tag_uri": "https://run.mocky.io/v3/62aaab33-d91c-4fde-b312-0cc6376333c2"
       },

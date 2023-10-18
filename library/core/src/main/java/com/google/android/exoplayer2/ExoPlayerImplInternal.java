@@ -743,7 +743,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
         /* releaseMediaSourceList= */ false,
         /* resetError= */ true);
     loadControl.onPrepared();
-    setState(playbackInfo.timeline.isEmpty() ? Player.STATE_ENDED : Player.STATE_BUFFERING);
+    int state = playbackInfo.timeline.isEmpty() ? Player.STATE_ENDED : Player.STATE_BUFFERING;
+    Log.d("bufferDebug","ExoImplInternal, prepareInternal, setState:" + state);
+    setState(state);
     mediaSourceList.prepare(bandwidthMeter.getTransferListener());
     handler.sendEmptyMessage(MSG_DO_SOME_WORK);
   }
@@ -1083,6 +1085,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       stopRenderers();
     } else if (playbackInfo.playbackState == Player.STATE_BUFFERING
         && shouldTransitionToReadyState(renderersAllowPlayback)) {
+      Log.d("bufferDebug","ExoImplInternal, doSomeWork, 1088, setState ready");
       setState(Player.STATE_READY);
       pendingRecoverableRendererError = null; // Any pending error was successfully recovered from.
       if (shouldPlayWhenReady()) {
@@ -1091,6 +1094,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     } else if (playbackInfo.playbackState == Player.STATE_READY
         && !(enabledRendererCount == 0 ? isTimelineReady() : renderersAllowPlayback)) {
       isRebuffering = shouldPlayWhenReady();
+      Log.d("bufferDebug","ExoImplInternal, doSomeWork, 1096, setState buffering");
       setState(Player.STATE_BUFFERING);
       if (isRebuffering) {
         notifyTrackSelectionRebuffer();
@@ -1306,6 +1310,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     stopRenderers();
     isRebuffering = false;
     if (forceBufferingState || playbackInfo.playbackState == Player.STATE_READY) {
+      Log.d("bufferDebug","ExoImplInternal, seekToPeriodPosition, setState buffering");
       setState(Player.STATE_BUFFERING);
     }
 
