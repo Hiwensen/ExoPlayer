@@ -1058,6 +1058,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
         boolean allowsPlayback =
             isReadingAhead || isWaitingForNextStream || renderer.isReady() || renderer.isEnded();
         renderersAllowPlayback = renderersAllowPlayback && allowsPlayback;
+        int trackType = renderer.getTrackType();
+        Log.d("bufferDebug",
+            "rendersAllowPlayback:" + renderersAllowPlayback + ", trackType:" + trackType
+            + ",isReadingAhead:" + isReadingAhead + ",isWaitingForNextStream:"
+            + isWaitingForNextStream
+            + ",renderer.isReady:" + renderer.isReady() + ",renderer.isEnded:"
+            + renderer.isEnded());
+
         if (!allowsPlayback) {
           renderer.maybeThrowStreamError();
         }
@@ -1095,6 +1103,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
         && !(enabledRendererCount == 0 ? isTimelineReady() : renderersAllowPlayback)) {
       isRebuffering = shouldPlayWhenReady();
       Log.d("bufferDebug","ExoImplInternal, doSomeWork, 1096, setState buffering");
+      Log.d("bufferDebug","enabledRendererCount:" + enabledRendererCount +
+          ",isTimeLineReady:" + isTimelineReady() + ",renderersAllowPlayback:" + renderersAllowPlayback);
       setState(Player.STATE_BUFFERING);
       if (isRebuffering) {
         notifyTrackSelectionRebuffer();
