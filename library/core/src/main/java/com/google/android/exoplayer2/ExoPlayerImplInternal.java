@@ -1059,7 +1059,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
             isReadingAhead || isWaitingForNextStream || renderer.isReady() || renderer.isEnded();
         renderersAllowPlayback = renderersAllowPlayback && allowsPlayback;
         int trackType = renderer.getTrackType();
-        Log.d("bufferDebug",
+        Log.d("readyDebug",
             "rendersAllowPlayback:" + renderersAllowPlayback + ", trackType:" + trackType
             + ",isReadingAhead:" + isReadingAhead + ",isWaitingForNextStream:"
             + isWaitingForNextStream

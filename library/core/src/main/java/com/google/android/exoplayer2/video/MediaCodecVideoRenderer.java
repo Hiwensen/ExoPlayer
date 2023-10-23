@@ -592,16 +592,20 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
             || tunneling)) {
       // Ready. If we were joining then we've now joined, so clear the joining deadline.
       joiningDeadlineMs = C.TIME_UNSET;
+      Log.d("readyDebug", "true 595");
       return true;
     } else if (joiningDeadlineMs == C.TIME_UNSET) {
       // Not joining.
+      Log.d("readyDebug", "false 599");
       return false;
     } else if (SystemClock.elapsedRealtime() < joiningDeadlineMs) {
       // Joining and still within the joining deadline.
+      Log.d("readyDebug", "true 603");
       return true;
     } else {
       // The joining deadline has been exceeded. Give up and clear the deadline.
       joiningDeadlineMs = C.TIME_UNSET;
+      Log.d("readyDebug", "false 608");
       return false;
     }
   }
