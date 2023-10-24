@@ -185,7 +185,9 @@ class SingleCuePointAdTagLoader(private val adTagDataSpec: DataSpec, private val
 
     override fun updateNextCuePoint(nextCuePointMillis: Long) {
         Log.d(TAG, "updateNextCuePoint, newPosition minutes:${nextCuePointMillis / 60000}")
-        adPlaybackState = AdPlaybackState(adsId, nextCuePointMillis * 1000)
+//        adPlaybackState = AdPlaybackState(adsId, nextCuePointMillis * 1000)
+        adPlaybackState =
+            adPlaybackState.withAdGroupTimeUs(AD_GROUP_INDEX_FIRST, nextCuePointMillis * 1000)
         updateAdPlaybackState()
     }
 
@@ -226,6 +228,7 @@ class SingleCuePointAdTagLoader(private val adTagDataSpec: DataSpec, private val
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {
+        Log.d(TAG,"onPlaybackStateChanged:$playbackState")
         val player = player ?: return
         handlePlayerStateChanged(player.playWhenReady, playbackState)
     }

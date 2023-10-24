@@ -38,7 +38,7 @@ class DefaultExoAdsLoader : ExoAdsLoader, Listener {
     private val playerListener = PlayerListenerImpl()
     private var cuePointListSeconds: List<Long> = listOf()
     private var initCuePointMs = 0L
-    private val useMultipleCuePoint = true
+    private val useMultipleCuePoint = false
 
     override fun setCuePoints(cuePointListSeconds: List<Long>, initCuePointMs: Long) {
         Log.d(

@@ -22,12 +22,9 @@ import com.google.android.exoplayer2.ui.TimeBar
 import com.google.android.exoplayer2.demo.ads.ADS_LOADER_DEBUG
 import com.google.android.exoplayer2.demo.ads.AdRequestType
 import com.google.android.exoplayer2.demo.ads.AdsFetcher
+import com.google.android.exoplayer2.demo.ads.DefaultExoAdsLoader
 import com.google.android.exoplayer2.demo.ads.ExoAdsLoader
-import com.google.android.exoplayer2.demo.ads.ExoAdsLoaderV2
 import com.google.android.exoplayer2.demo.ads.FetchAdListener
-import com.google.android.exoplayer2.source.MergingMediaSource
-import com.google.android.exoplayer2.source.SingleSampleMediaSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.common.collect.ImmutableList
 
@@ -110,7 +107,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
         player.addListener(playerListener)
         playerView.player = player
 
-        clientSideAdsLoader = ExoAdsLoaderV2()
+        clientSideAdsLoader = DefaultExoAdsLoader()
         clientSideAdsLoader.setPlayer(player)
         clientSideAdsLoader.setCuePoints(AD_POSITION_SECONDS, resumePositionMs)
     }
@@ -147,26 +144,16 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
             .setRoleFlags(C.ROLE_FLAG_SUBTITLE)
             .build()
 
-        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT_TUBI)
+        val mediaItem = MediaItem.Builder().setUri(URI_CLEAR_CONTENT)
                 .setAdsConfiguration(MediaItem.AdsConfiguration.Builder(com.google.android.exoplayer2.demo.ads.AD_TAG_URI).build())
                 .setSubtitleConfigurations(ImmutableList.of(subtitle))
                 .build()
 
-//        val defaultMediaSourceFactory = DefaultMediaSourceFactory(this)
-//                .experimentalUseProgressiveMediaSourceForSubtitles(true)
-//        val contentMediaSource = defaultMediaSourceFactory.createMediaSource(mediaItem)
-
-        // Plays the video with the side loaded subtitle.
-//        val httpDataSourceFactory = DefaultHttpDataSource.Factory()
-//        val subtitleSource = SingleSampleMediaSource.Factory(httpDataSourceFactory)
-//            .createMediaSource(subtitle, -1)
-//        val mergingMediaSource = MergingMediaSource(contentMediaSource, subtitleSource)
-
         player.setMediaItem(mediaItem)
-//        player.setMediaSource(mergingMediaSource)
         player.prepare()
         player.playWhenReady = true
-        adsFetcher.fetchPreRoll(resumePositionMs)
+        targetCuePointMs = AD_POSITION_SECONDS.first()
+//        adsFetcher.fetchPreRoll(resumePositionMs)
         handler.post(updateProgressRunnable)
     }
 
@@ -190,6 +177,7 @@ class PlaygroundActivity : AppCompatActivity(), AdsLoader.Provider {
                 TimeHelper.milliToMicro(targetCuePointMilli))
         if (adUrlList.isEmpty()) {
             updateTargetCuePoint(TimeHelper.milliToSecond(targetCuePointMs))
+            clientSideAdsLoader.updateNextCuePoint(targetCuePointMs)
         }
     }
 

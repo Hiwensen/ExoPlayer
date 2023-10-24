@@ -6,6 +6,8 @@ import android.os.SystemClock
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.google.android.exoplayer2.demo.AD_POSITION_SECONDS
 import com.google.android.exoplayer2.demo.AD_PRE_FETCH_TIME_SECOND
+import com.google.android.exoplayer2.demo.AD_URL_0
+import com.google.android.exoplayer2.demo.AD_URL_1
 import com.google.android.exoplayer2.demo.AD_URL_2
 import com.google.android.exoplayer2.demo.AD_URL_3
 import com.google.android.exoplayer2.demo.AD_URL_4
@@ -107,8 +109,8 @@ class AdsFetcher(val lifecycleScope: LifecycleCoroutineScope, getContentPosition
                 when (adGroupIndex) {
                     0 -> {
                         fetchAdListenerList.forEach {
-                            it.onAdResponse(emptyList(), adRequestType)
-//                            it.onAdResponse(listOf(AD_URL_0, AD_URL_1), adRequestType)
+//                            it.onAdResponse(emptyList(), adRequestType)
+                            it.onAdResponse(listOf(AD_URL_0, AD_URL_1), adRequestType)
                         }
                     }
 

@@ -13,7 +13,7 @@ val URI_DRM_LICENSE = "https://proxy.uat.widevine.com/proxy?provider=widevine_te
 val URI_DRM_LICENSE_TUBI =
         "https://license.adrise.tv/challenge?platform=android&type=widevine_psshv0&external_id=AC59F98EE938FE3D35CF29D5660CBD43&drm_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbmFsb2dfb3V0IjoiZW5hYmxlZCIsImV4cCI6MTY5NTc5NzcwMCwiaGRjcCI6ImRpc2FibGVkIiwicHJfc2VjdXJpdHlfbGV2ZWwiOjIwMDAsInd2X3NlY3VyaXR5X2xldmVsIjoxfQ.T5fBkmsW6TcGcc9JlmjBIrf0VVoXrWGtHyl66vFxeX8"
 
-val AD_POSITION_SECONDS = listOf(0L, 10L, 20L, 30L, 40L, 50L, 60L)
+val AD_POSITION_SECONDS = listOf( 30L, 60L, 90L, 120L, 150L, 180L)
 val AD_PRE_FETCH_TIME_SECOND = 5
 
 val SUBTITLE_URL = "http://s.adrise.tv/31af500b-9d1e-45ce-9588-e1b85cfa7c0a.srt"
