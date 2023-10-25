@@ -121,6 +121,7 @@ import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
  */
 @Deprecated
 public class MediaCodecVideoRenderer extends MediaCodecRenderer {
+  private static final String READY_DEBUG = "readyDebug";
 
   private static final String TAG = "MediaCodecVideoRenderer";
   private static final String KEY_CROP_LEFT = "crop-left";
@@ -561,6 +562,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     if (videoFrameProcessorManager.isEnabled()) {
       videoFrameProcessorManager.flush();
     }
+    Log.d(READY_DEBUG,"onPositionReset, clearRenderedFirstFrame");
     clearRenderedFirstFrame();
     frameReleaseHelper.onPositionReset();
     lastBufferPresentationTimeUs = C.TIME_UNSET;
@@ -633,6 +635,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   @Override
   protected void onDisabled() {
     clearReportedVideoSize();
+    Log.d(READY_DEBUG,"onDisabled, clearRenderedFirstFrame");
     clearRenderedFirstFrame();
     haveReportedFirstFrameRenderedForCurrentSurface = false;
     tunnelingOnFrameRenderedListener = null;
@@ -749,6 +752,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
         // If we know the video size, report it again immediately.
         maybeRenotifyVideoSizeChanged();
         // We haven't rendered to the new display surface yet.
+        Log.d(READY_DEBUG,"setOutput 755, clearRenderedFirstFrame");
         clearRenderedFirstFrame();
         if (state == STATE_STARTED) {
           // Set joining deadline to report MediaCodecVideoRenderer is ready.
@@ -762,6 +766,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
       } else {
         // The display surface has been removed.
         clearReportedVideoSize();
+        Log.d(READY_DEBUG,"setOutput 769, clearRenderedFirstFrame");
         clearRenderedFirstFrame();
         if (videoFrameProcessorManager.isEnabled()) {
           videoFrameProcessorManager.clearOutputSurfaceInfo();
@@ -1343,6 +1348,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     updateOutputFormatForTime(presentationTimeUs);
     maybeNotifyVideoSizeChanged(decodedVideoSize);
     decoderCounters.renderedOutputBufferCount++;
+    Log.d(READY_DEBUG, "onProcessedTunneledBuffer, maybeNotifyRenderedFirstFrame");
     maybeNotifyRenderedFirstFrame();
     onProcessedOutputBuffer(presentationTimeUs);
   }
@@ -1364,6 +1370,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   @Override
   protected void onProcessedStreamChange() {
     super.onProcessedStreamChange();
+    Log.d(READY_DEBUG,"onProcessedStreamChange, clearRenderedFirstFrame");
     clearRenderedFirstFrame();
   }
 
@@ -1585,6 +1592,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     if (!videoFrameProcessorManager.isEnabled()) {
       lastRenderRealtimeUs = SystemClock.elapsedRealtime() * 1000;
       maybeNotifyVideoSizeChanged(decodedVideoSize);
+      Log.d(READY_DEBUG, "renderOutputBuffer, maybeNotifyRenderedFirstFrame");
       maybeNotifyRenderedFirstFrame();
     }
   }
@@ -1613,6 +1621,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     if (!videoFrameProcessorManager.isEnabled()) {
       lastRenderRealtimeUs = SystemClock.elapsedRealtime() * 1000;
       maybeNotifyVideoSizeChanged(decodedVideoSize);
+      Log.d(READY_DEBUG, "renderOutputBufferV21, maybeNotifyRenderedFirstFrame");
       maybeNotifyRenderedFirstFrame();
     }
   }
@@ -1641,6 +1650,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   }
 
   private void clearRenderedFirstFrame() {
+    Log.d("readyDebug", "clearRenderedFirstFrame, set renderedFirstFrameAfterReset to false");
     renderedFirstFrameAfterReset = false;
     // The first frame notification is triggered by renderOutputBuffer or renderOutputBufferV21 for
     // non-tunneled playback, onQueueInputBuffer for tunneled playback prior to API level 23, and
@@ -1658,6 +1668,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
   /* package */ void maybeNotifyRenderedFirstFrame() {
     renderedFirstFrameAfterEnable = true;
     if (!renderedFirstFrameAfterReset) {
+      Log.d("readyDebug", "maybeNotifyRenderedFirstFrame, set renderedFirstFrameAfterReset to true");
       renderedFirstFrameAfterReset = true;
       eventDispatcher.renderedFirstFrame(displaySurface);
       haveReportedFirstFrameRenderedForCurrentSurface = true;
@@ -2317,6 +2328,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
       processedFramesTimestampsUs.remove();
       renderer.lastRenderRealtimeUs = SystemClock.elapsedRealtime() * 1000;
       if (releaseTimeNs != VideoFrameProcessor.DROP_OUTPUT_FRAME) {
+        Log.d(READY_DEBUG, "releaseProcessedFrameInternal, maybeNotifyRenderedFirstFrame");
         renderer.maybeNotifyRenderedFirstFrame();
       }
       if (isLastFrame) {

@@ -692,6 +692,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
           new OutputStreamInfo(
               /* previousStreamLastBufferTimeUs= */ C.TIME_UNSET, startPositionUs, offsetUs));
       if (outputStreamInfo.streamOffsetUs != C.TIME_UNSET) {
+        Log.d("readyDebug","onStreamChanged, onProcessedStreamChange");
         onProcessedStreamChange();
       }
     } else {
@@ -1647,6 +1648,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
     while (!pendingOutputStreamChanges.isEmpty()
         && presentationTimeUs >= pendingOutputStreamChanges.peek().previousStreamLastBufferTimeUs) {
       setOutputStreamInfo(pendingOutputStreamChanges.poll());
+      Log.d("readyDebug","onProcessedOutputBuffer, onProcessedStreamChange");
       onProcessedStreamChange();
     }
   }
