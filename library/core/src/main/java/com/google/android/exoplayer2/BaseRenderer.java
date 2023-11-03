@@ -27,6 +27,7 @@ import com.google.android.exoplayer2.source.SampleStream;
 import com.google.android.exoplayer2.source.SampleStream.ReadDataResult;
 import com.google.android.exoplayer2.source.SampleStream.ReadFlags;
 import com.google.android.exoplayer2.util.Assertions;
+import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.MediaClock;
 import java.io.IOException;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
@@ -137,6 +138,7 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
     }
     streamFormats = formats;
     streamOffsetUs = offsetUs;
+    Log.d("readyDebug","BaseRenderer, replaceStream, onStreamChanged");
     onStreamChanged(formats, startPositionUs, offsetUs);
   }
 
